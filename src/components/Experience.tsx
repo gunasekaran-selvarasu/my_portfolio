@@ -96,23 +96,21 @@ export default function Experience() {
             return (
               <div key={index} className="relative group">
                 {/* Timeline Dot */}
-                <div 
-                  className={`absolute -left-[41px] md:-left-[49px] top-1.5 w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all duration-300 ${
-                    isExpanded 
-                      ? 'bg-indigo-500 border-indigo-400 shadow-lg shadow-indigo-500/50 scale-110' 
-                      : 'bg-zinc-900 border-zinc-700 group-hover:border-zinc-500'
-                  }`}
+                <div
+                  className={`absolute -left-[44px] md:-left-[52px] top-1.5 w-6 h-6 rounded-full flex items-center justify-center border-2 transition-all duration-300 ${isExpanded
+                    ? 'bg-indigo-500 border-indigo-400 shadow-lg shadow-indigo-500/50 scale-110'
+                    : 'bg-zinc-900 border-zinc-700 group-hover:border-zinc-500'
+                    }`}
                 >
                   <Briefcase className={`w-3.5 h-3.5 ${isExpanded ? 'text-white' : 'text-zinc-400'}`} />
                 </div>
 
                 {/* Experience Card */}
-                <div 
-                  className={`glass-card rounded-2xl border transition-all duration-300 cursor-pointer overflow-hidden ${
-                    isExpanded 
-                      ? 'border-indigo-500/30 bg-zinc-900/60 shadow-xl shadow-indigo-500/5' 
-                      : 'border-zinc-800/40 hover:border-zinc-700/60 hover:bg-zinc-900/20'
-                  }`}
+                <div
+                  className={`glass-card rounded-2xl border transition-all duration-300 cursor-pointer overflow-hidden ${isExpanded
+                    ? 'border-indigo-500/30 bg-zinc-900/60 shadow-xl shadow-indigo-500/5'
+                    : 'border-zinc-800/40 hover:border-zinc-700/60 hover:bg-zinc-900/20'
+                    }`}
                   onClick={() => setExpandedIndex(isExpanded ? null : index)}
                 >
                   {/* Header Row */}
@@ -171,8 +169,8 @@ export default function Experience() {
                             <span className="text-[10px] uppercase font-bold text-zinc-550 block mb-2">Technologies Used</span>
                             <div className="flex flex-wrap gap-2">
                               {exp.tech.map((t, tIndex) => (
-                                <span 
-                                  key={tIndex} 
+                                <span
+                                  key={tIndex}
                                   className="text-xs font-semibold px-2.5 py-1 rounded bg-zinc-900 border border-zinc-800 text-zinc-300"
                                 >
                                   {t}
