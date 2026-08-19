@@ -51,7 +51,7 @@ export default function Education() {
   ];
 
   return (
-    <section id="cloud" className="relative py-24 border-t border-zinc-900 bg-zinc-950/60">
+    <section id="cloud" className="relative py-24 border-t border-zinc-900 bg-zinc-950/60 overflow-hidden">
       {/* Background Gradients */}
       <div className="absolute inset-0 z-0">
         <div className="absolute bottom-10 left-1/4 w-[400px] h-[300px] rounded-full bg-cyan-500/5 glow-blur" />

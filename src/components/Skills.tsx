@@ -59,7 +59,7 @@ export default function Skills() {
   ];
 
   return (
-    <section id="skills" className="relative py-24 border-t border-zinc-900 bg-zinc-950">
+    <section id="skills" className="relative py-24 border-t border-zinc-900 bg-zinc-950 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] rounded-full bg-cyan-500/5 glow-blur" />
       </div>

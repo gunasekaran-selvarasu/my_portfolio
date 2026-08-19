@@ -74,7 +74,7 @@ export default function Experience() {
   ];
 
   return (
-    <section id="experience" className="relative py-24 border-t border-zinc-900 bg-zinc-950/60">
+    <section id="experience" className="relative py-24 border-t border-zinc-900 bg-zinc-950/60 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <div className="absolute bottom-0 right-10 w-[500px] h-[300px] rounded-full bg-indigo-500/5 glow-blur" />
       </div>

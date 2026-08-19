@@ -133,7 +133,7 @@ export default function Projects() {
     : projects.filter(p => p.category === activeFilter);
 
   return (
-    <section id="projects" className="relative py-24 border-t border-zinc-900 bg-zinc-950">
+    <section id="projects" className="relative py-24 border-t border-zinc-900 bg-zinc-950 overflow-hidden">
       <div className="absolute inset-0 z-0">
         <div className="absolute top-10 left-10 w-[400px] h-[400px] bg-indigo-500/5 glow-blur" />
       </div>
