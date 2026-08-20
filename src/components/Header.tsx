@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Github, Linkedin, FileText } from 'lucide-react';
+import resumeUrl from '../assets/docs/GUNASEKARAN_SELVARASU_Resume_Updated.pdf';
 
 interface HeaderProps {
   activeSection: string;
@@ -117,8 +118,8 @@ export default function Header({ activeSection }: HeaderProps) {
           </a>
           
           <a
-            href="/Gunasekaran_Selvarasu_Resume.pdf"
-            download="Gunasekaran_Selvarasu_Resume.pdf"
+            href={resumeUrl}
+            download="GUNASEKARAN_SELVARASU_Resume_Updated.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 text-white shadow-md shadow-indigo-500/10 hover:shadow-indigo-500/20 active:scale-95 transition-all"
@@ -185,8 +186,8 @@ export default function Header({ activeSection }: HeaderProps) {
                 </a>
               </div>
               <a
-                href="/Gunasekaran_Selvarasu_Resume.pdf"
-                download="Gunasekaran_Selvarasu_Resume.pdf"
+                href={resumeUrl}
+                download="GUNASEKARAN_SELVARASU_Resume_Updated.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full text-center py-3.5 mt-2 rounded-xl text-base font-semibold bg-gradient-to-r from-indigo-500 to-cyan-500 text-white shadow-lg shadow-indigo-500/10"
