@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { 
-  Code, Cloud, CreditCard, Shield, Globe, 
+import {
+  Code, Cloud, CreditCard, Shield, Globe,
   Layers, CheckCircle, ExternalLink, Zap
 } from 'lucide-react';
 
@@ -87,7 +87,7 @@ export default function Skills() {
             className="md:col-span-2 glass-card p-8 rounded-3xl border border-zinc-800/40 relative overflow-hidden group hover:border-zinc-700/50 transition-all duration-300"
           >
             <div className="absolute -right-20 -top-20 w-48 h-48 bg-indigo-500/10 rounded-full glow-blur group-hover:bg-indigo-500/15 transition-colors" />
-            
+
             <div className="flex items-center gap-3 mb-6">
               <div className="p-2.5 bg-indigo-500/10 text-indigo-400 rounded-xl">
                 <Code className="w-6 h-6" />
@@ -104,7 +104,7 @@ export default function Skills() {
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {frontendSkills.map((skill, index) => (
-                <div 
+                <div
                   key={index}
                   className="bg-zinc-900/60 border border-zinc-850 hover:border-indigo-500/30 p-3.5 rounded-2xl flex flex-col justify-between transition-all group/item"
                 >
@@ -128,58 +128,63 @@ export default function Skills() {
             <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-amber-500 via-indigo-500 to-cyan-500" />
             <div className="absolute -left-10 -bottom-10 w-44 h-44 bg-cyan-500/10 rounded-full glow-blur" />
 
-            <div className="z-10">
-              <div className="flex justify-between items-start mb-8">
-                <span className="px-3 py-1 text-[10px] font-bold text-amber-300 bg-amber-500/10 border border-amber-500/20 rounded-full uppercase tracking-wider">
-                  Verified Credential
-                </span>
-                <img 
-                  src="https://images.credly.com/size/340x340/images/00634f62-e031-42df-a790-a33b7a1a7c8d/image.png" 
-                  alt="AWS Certified Cloud Practitioner" 
-                  className="w-16 h-16 object-contain filter drop-shadow-[0_0_8px_rgba(245,158,11,0.2)] group-hover:scale-105 transition-transform duration-300"
-                  onError={(e) => {
-                    // Fallback in case of network issues
-                    e.currentTarget.style.display = 'none';
-                  }}
-                />
-              </div>
+            <div className="z-10 flex flex-col justify-between h-full w-full">
+              <div>
+                <div className="flex justify-between items-center mb-6">
+                  <span className="px-3 py-1 text-[10px] font-bold text-amber-300 bg-amber-500/10 border border-amber-500/20 rounded-full uppercase tracking-wider">
+                    Verified Credential
+                  </span>
+                </div>
 
-              <div className="mb-6">
-                <h3 className="text-2xl font-black text-white tracking-tight mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-indigo-300 transition-all duration-300">
-                  AWS Certified
-                </h3>
-                <p className="text-sm font-semibold text-zinc-300">
-                  Cloud Practitioner
-                </p>
-                <p className="text-xs text-zinc-500 mt-1 font-medium">
-                  Amazon Web Services (AWS)
-                </p>
-              </div>
+                {/* Credly Badge Embed */}
+                <div className="flex justify-center mb-6 min-h-[270px] w-full">
+                  <iframe
+                    src="https://www.credly.com/embedded_badge/da73f66c-5901-455c-a2c6-0748ee3e55af"
+                    width="300"
+                    height="300"
+                    title="AWS Certified Cloud Practitioner Badge"
+                    className="border-0"
+                    scrolling="no"
+                  />
+                </div>
 
-              <div className="space-y-3.5 mb-8">
-                <div className="flex items-center gap-2.5 text-xs text-zinc-400 font-medium">
-                  <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>Cloud Design & Architecture</span>
+                <div className="mb-6 text-center">
+                  <h3 className="text-2xl font-black text-white tracking-tight mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-indigo-300 transition-all duration-300">
+                    AWS Certified
+                  </h3>
+                  <p className="text-sm font-semibold text-zinc-300">
+                    Cloud Practitioner
+                  </p>
+                  <p className="text-xs text-zinc-500 mt-1 font-medium">
+                    Amazon Web Services (AWS)
+                  </p>
                 </div>
-                <div className="flex items-center gap-2.5 text-xs text-zinc-400 font-medium">
-                  <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>AWS Global Infrastructure</span>
-                </div>
-                <div className="flex items-center gap-2.5 text-xs text-zinc-400 font-medium">
-                  <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>Security & Compliance Audits</span>
-                </div>
-                <div className="flex items-center gap-2.5 text-xs text-zinc-400 font-medium">
-                  <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>Billing, Pricing, & Optimization</span>
+
+                <div className="space-y-3.5 mb-8">
+                  <div className="flex items-center gap-2.5 text-xs text-zinc-400 font-medium justify-center">
+                    <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Cloud Design & Architecture</span>
+                  </div>
+                  <div className="flex items-center gap-2.5 text-xs text-zinc-400 font-medium justify-center">
+                    <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>AWS Global Infrastructure</span>
+                  </div>
+                  <div className="flex items-center gap-2.5 text-xs text-zinc-400 font-medium justify-center">
+                    <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Security & Compliance Audits</span>
+                  </div>
+                  <div className="flex items-center gap-2.5 text-xs text-zinc-400 font-medium justify-center">
+                    <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <span>Billing, Pricing, & Optimization</span>
+                  </div>
                 </div>
               </div>
             </div>
 
             <div className="z-10 mt-auto">
-              <a 
-                href="https://www.credly.com/badges/da73f66c-5901-455c-a2c6-0748ee3e55af/public_url" 
-                target="_blank" 
+              <a
+                href="https://www.credly.com/badges/da73f66c-5901-455c-a2c6-0748ee3e55af/public_url"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-zinc-700 font-semibold text-sm transition-all"
               >
@@ -195,7 +200,7 @@ export default function Skills() {
             className="glass-card p-8 rounded-3xl border border-zinc-800/40 relative overflow-hidden group hover:border-zinc-700/50 transition-all duration-300"
           >
             <div className="absolute -right-20 -bottom-20 w-36 h-36 bg-cyan-500/10 rounded-full glow-blur" />
-            
+
             <div className="flex items-center gap-3 mb-6">
               <div className="p-2.5 bg-cyan-500/10 text-cyan-400 rounded-xl">
                 <Layers className="w-6 h-6" />
@@ -247,8 +252,8 @@ export default function Skills() {
 
             <div className="flex flex-wrap gap-2.5">
               {cloudSkills.map((skill, index) => (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   className="px-3.5 py-2 bg-zinc-900/50 border border-zinc-850/60 rounded-xl flex items-center gap-2 hover:border-zinc-700 hover:bg-zinc-900/80 transition-colors"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0" />
