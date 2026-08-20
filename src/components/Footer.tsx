@@ -23,12 +23,9 @@ export default function Footer() {
         </div>
 
         {/* Info & Copyright */}
-        <div className="text-center md:text-left space-y-1">
+        <div className="text-center md:text-left">
           <p className="text-sm text-zinc-500 font-medium">
             &copy; {currentYear} Gunasekaran Selvarasu. All rights reserved.
-          </p>
-          <p className="text-[11px] text-zinc-650 font-semibold uppercase tracking-wider">
-            Built with React, TypeScript, Tailwind v4, & Framer Motion
           </p>
         </div>
 
