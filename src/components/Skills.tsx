@@ -232,7 +232,7 @@ export default function Skills() {
           {/* 4. Cloud & DevOps Card (Span 2) */}
           <motion.div
             variants={cardVariants}
-            className="md:col-span-2 glass-card p-8 rounded-3xl border border-zinc-800/40 relative overflow-hidden group hover:border-zinc-700/50 transition-all duration-300"
+            className="md:col-span-1 glass-card p-8 rounded-3xl border border-zinc-800/40 relative overflow-hidden group hover:border-zinc-700/50 transition-all duration-300"
           >
             <div className="absolute -left-10 -bottom-10 w-44 h-44 bg-cyan-500/10 rounded-full glow-blur" />
 
