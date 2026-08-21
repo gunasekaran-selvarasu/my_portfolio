@@ -1,11 +1,16 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, MapPin, Linkedin, Github, Send, Copy, Check, MessageCircle, ExternalLink } from 'lucide-react';
+import ReCAPTCHA from 'react-google-recaptcha';
+import emailjs from '@emailjs/browser';
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
-  const [formState, setFormState] = useState<'idle' | 'sending' | 'success'>('idle');
+  const [formState, setFormState] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const copyEmail = () => {
     navigator.clipboard.writeText('sguna0100@gmail.com');
@@ -18,17 +23,49 @@ export default function Contact() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
+    if (!recaptchaToken) return;
 
     setFormState('sending');
-    // Simulate API request
-    setTimeout(() => {
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateAdminId = import.meta.env.VITE_EMAILJS_TEMPLATE_ADMIN;
+    const templateCustomerId = import.meta.env.VITE_EMAILJS_TEMPLATE_CUSTOMER;
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateAdminId || !templateCustomerId || !publicKey) {
+      console.error('EmailJS configuration variables are missing. Please verify your .env file.');
+      setFormState('error');
+      setTimeout(() => setFormState('idle'), 4000);
+      return;
+    }
+
+    const templateParams = {
+      name: formData.name,
+      email: formData.email,
+      message: formData.message,
+      'g-recaptcha-response': recaptchaToken,
+    };
+
+    try {
+      await Promise.all([
+        emailjs.send(serviceId, templateAdminId, templateParams, publicKey),
+        emailjs.send(serviceId, templateCustomerId, templateParams, publicKey)
+      ]);
+
       setFormState('success');
       setFormData({ name: '', email: '', message: '' });
+      setRecaptchaToken(null);
+      recaptchaRef.current?.reset();
+
       setTimeout(() => setFormState('idle'), 4000);
-    }, 1500);
+    } catch (error) {
+      console.error('Failed to send email:', error);
+      setFormState('error');
+      setTimeout(() => setFormState('idle'), 4000);
+    }
   };
 
   return (
@@ -207,12 +244,24 @@ export default function Contact() {
                   />
                 </div>
 
+                {/* Google reCAPTCHA Checkbox */}
+                <div className="flex justify-center sm:justify-start pt-2">
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY || 'dummy_site_key'}
+                    onChange={(token) => setRecaptchaToken(token)}
+                    theme="dark"
+                  />
+                </div>
+
                 <button
                   type="submit"
-                  disabled={formState !== 'idle'}
-                  className={`w-full flex items-center justify-center gap-2 py-4 rounded-xl text-sm font-bold tracking-wide shadow-md active:scale-[0.98] transition-all duration-300 ${formState === 'success'
-                      ? 'bg-emerald-500 hover:bg-emerald-600 text-white shadow-emerald-500/10'
-                      : 'bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 text-white shadow-indigo-500/10 hover:shadow-indigo-500/25'
+                  disabled={formState !== 'idle' || !recaptchaToken}
+                  className={`w-full flex items-center justify-center gap-2 py-4 rounded-xl text-sm font-bold tracking-wide shadow-md active:scale-[0.98] transition-all duration-300 cursor-pointer ${formState === 'success'
+                    ? 'bg-emerald-500 hover:bg-emerald-600 text-white shadow-emerald-500/10'
+                    : formState === 'error'
+                      ? 'bg-rose-500 hover:bg-rose-600 text-white shadow-rose-500/10'
+                      : 'bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 text-white shadow-indigo-500/10 hover:shadow-indigo-500/25 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-indigo-500 disabled:hover:to-cyan-500'
                     }`}
                 >
                   {formState === 'idle' && (
@@ -233,6 +282,11 @@ export default function Contact() {
                       <span>Message Sent Successfully!</span>
                     </>
                   )}
+                  {formState === 'error' && (
+                    <>
+                      <span>Failed to Send Message</span>
+                    </>
+                  )}
                 </button>
               </form>
 
@@ -245,6 +299,16 @@ export default function Contact() {
                     className="mt-4 p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs text-center rounded-xl font-medium"
                   >
                     Thank you! I will get back to you as soon as possible.
+                  </motion.div>
+                )}
+                {formState === 'error' && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="mt-4 p-3 bg-rose-500/10 border border-rose-500/20 text-rose-450 text-xs text-center rounded-xl font-medium"
+                  >
+                    Failed to send email. Please check your internet connection or configurations.
                   </motion.div>
                 )}
               </AnimatePresence>
