@@ -74,7 +74,9 @@ export default function Experience() {
   ];
 
   return (
-    <section id="experience" className="relative py-24 border-t border-zinc-900 bg-zinc-950/60 overflow-hidden">
+    <section id="experience" className="relative py-24 bg-zinc-950/60 overflow-hidden">
+      {/* Top Faded Divider */}
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-800/80 to-transparent" />
       <div className="absolute inset-0 z-0">
         <div className="absolute bottom-0 right-10 w-[500px] h-[300px] rounded-full bg-indigo-500/5 glow-blur" />
       </div>
@@ -150,7 +152,8 @@ export default function Experience() {
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.25, ease: 'easeInOut' }}
                       >
-                        <div className="px-6 pb-6 pt-2 border-t border-zinc-850/50 space-y-4">
+                        <div className="relative px-6 pb-6 pt-2 space-y-4">
+                          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
                           <p className="text-sm text-zinc-350 leading-relaxed italic">
                             {exp.summary}
                           </p>
@@ -165,7 +168,8 @@ export default function Experience() {
                           </ul>
 
                           {/* Tech Stack Badges */}
-                          <div className="pt-4 border-t border-zinc-850/40">
+                          <div className="relative pt-4">
+                            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
                             <span className="text-[10px] uppercase font-bold text-zinc-550 block mb-2">Technologies Used</span>
                             <div className="flex flex-wrap gap-2">
                               {exp.tech.map((t, tIndex) => (

@@ -145,8 +145,10 @@ export default function Hero() {
           {/* Quick Metrics Bar (Bottom anchor spanning all columns) */}
           <motion.div
             variants={itemVariants}
-            className="col-span-1 lg:col-span-12 grid grid-cols-2 lg:grid-cols-4 gap-4 w-full pt-8 border-t border-zinc-850 mt-8"
+            className="relative col-span-1 lg:col-span-12 grid grid-cols-2 lg:grid-cols-4 gap-4 w-full pt-8 mt-8"
           >
+            {/* Faded Divider */}
+            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-800/80 to-transparent" />
             {metrics.map((metric, i) => {
               const IconComponent = metric.icon;
               return (

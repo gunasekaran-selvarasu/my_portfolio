@@ -59,7 +59,9 @@ export default function Skills() {
   ];
 
   return (
-    <section id="skills" className="relative py-24 border-t border-zinc-900 bg-zinc-950 overflow-hidden">
+    <section id="skills" className="relative py-24 bg-zinc-950 overflow-hidden">
+      {/* Top Faded Divider */}
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-800/80 to-transparent" />
       <div className="absolute inset-0 z-0">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] rounded-full bg-cyan-500/5 glow-blur" />
       </div>

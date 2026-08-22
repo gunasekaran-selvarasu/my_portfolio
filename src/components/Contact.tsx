@@ -69,7 +69,9 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative py-24 border-t border-zinc-900 bg-zinc-950 overflow-hidden">
+    <section id="contact" className="relative py-24 bg-zinc-950 overflow-hidden">
+      {/* Top Faded Divider */}
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-800/80 to-transparent" />
       <div className="absolute inset-0 z-0">
         <div className="absolute top-1/2 right-10 w-[400px] h-[400px] bg-indigo-500/5 glow-blur" />
       </div>

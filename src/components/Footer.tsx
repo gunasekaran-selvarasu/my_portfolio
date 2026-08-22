@@ -12,7 +12,9 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative bg-zinc-950 border-t border-zinc-900 py-12">
+    <footer className="relative bg-zinc-950 py-12">
+      {/* Top Faded Divider */}
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-800/80 to-transparent" />
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
         {/* Logo / Brand */}
         <div className="flex items-center gap-1">

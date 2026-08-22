@@ -51,7 +51,9 @@ export default function Education() {
   ];
 
   return (
-    <section id="cloud" className="relative py-24 border-t border-zinc-900 bg-zinc-950/60 overflow-hidden">
+    <section id="cloud" className="relative py-24 bg-zinc-950/60 overflow-hidden">
+      {/* Top Faded Divider */}
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-800/80 to-transparent" />
       {/* Background Gradients */}
       <div className="absolute inset-0 z-0">
         <div className="absolute bottom-10 left-1/4 w-[400px] h-[300px] rounded-full bg-cyan-500/5 glow-blur" />
@@ -59,7 +61,7 @@ export default function Education() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        <motion.div 
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -79,7 +81,7 @@ export default function Education() {
 
             <div className="space-y-6">
               {/* MCA */}
-              <motion.div 
+              <motion.div
                 variants={itemVariants}
                 className="glass-card p-6 rounded-2xl border border-zinc-800/40 relative overflow-hidden group hover:border-zinc-700/50 transition-all duration-300"
               >
@@ -95,7 +97,7 @@ export default function Education() {
                         Master of Computer Applications (MCA)
                       </h3>
                       <p className="text-sm font-semibold text-zinc-400">
-                        E.G.S. Pillay Engineering College
+                        E.G.S. Pillay Engineering College (Autonomous)
                       </p>
                     </div>
                     <div className="flex items-center gap-3 pt-2">
@@ -111,7 +113,7 @@ export default function Education() {
               </motion.div>
 
               {/* BCA */}
-              <motion.div 
+              <motion.div
                 variants={itemVariants}
                 className="glass-card p-6 rounded-2xl border border-zinc-800/40 relative overflow-hidden group hover:border-zinc-700/50 transition-all duration-300"
               >

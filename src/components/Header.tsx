@@ -48,10 +48,10 @@ export default function Header({ activeSection }: HeaderProps) {
 
   return (
     <motion.header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${
         scrolled 
-          ? 'py-4 bg-zinc-950/70 backdrop-blur-md border-b border-zinc-800/40 shadow-lg shadow-zinc-950/20' 
-          : 'py-6 bg-transparent'
+          ? 'py-4 bg-zinc-950/70 backdrop-blur-md border-zinc-800/40 shadow-lg shadow-zinc-950/20' 
+          : 'py-6 bg-transparent border-transparent'
       }`}
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
