@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Award, Zap, Code, ShieldCheck } from 'lucide-react';
-import profileImg from '../assets/profile/gunasekaran_selvarasu.jpeg';
+// Profile image loaded directly from public/profile.webp
 
 export default function Hero() {
   const containerVariants = {
@@ -133,8 +133,12 @@ export default function Hero() {
               <div className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-[320px] lg:h-[320px] xl:w-[360px] xl:h-[360px] rounded-full p-[3px] bg-gradient-to-tr from-zinc-800/60 via-zinc-700/60 to-zinc-800/60 group-hover:from-indigo-500 group-hover:via-purple-500 group-hover:to-cyan-500 transition-all duration-500 shadow-2xl shadow-black/80 overflow-hidden">
                 <div className="w-full h-full rounded-full overflow-hidden bg-zinc-900/90">
                   <img
-                    src={profileImg}
+                    src="/profile.webp"
                     alt="Gunasekaran Selvarasu"
+                    width="413"
+                    height="531"
+                    fetchPriority="high"
+                    loading="eager"
                     className="w-full h-full object-cover object-top scale-100 group-hover:scale-103 transition-transform duration-500 ease-out"
                   />
                 </div>

@@ -8,7 +8,11 @@ import Education from './components/Education';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from "@vercel/speed-insights/react"
+import { SpeedInsights } from "@vercel/speed-insights/react";
+
+const isLocal = typeof window !== 'undefined' && 
+  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+const showAnalytics = import.meta.env.PROD && !isLocal;
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('about');
@@ -57,10 +61,10 @@ export default function App() {
       <Footer />
 
       {/* Vercel Analytics */}
-      <Analytics />
+      {showAnalytics && <Analytics />}
 
       {/* Vercel Speed Insights */}
-      <SpeedInsights />
+      {showAnalytics && <SpeedInsights />}
     </div>
   );
 }
