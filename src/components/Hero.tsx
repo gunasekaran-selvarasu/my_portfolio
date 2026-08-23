@@ -1,7 +1,27 @@
+import { motion } from 'framer-motion';
 import { ArrowUpRight, Award, Zap, Code, ShieldCheck } from 'lucide-react';
-// Profile image loaded directly from public/profile.webp
+import profileImg from '../assets/profile/gunasekaran_selvarasu.jpeg';
 
 export default function Hero() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { type: 'spring' as const, stiffness: 100, damping: 20 },
+    },
+  };
 
   const handleScrollTo = (id: string) => {
     const element = document.querySelector(id);
@@ -42,31 +62,48 @@ export default function Hero() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center animate-fade-in">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center"
+        >
           {/* Left Column: Text & CTA Content */}
           <div className="col-span-1 lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left">
             {/* AWS Certification Tagline */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs md:text-sm font-semibold tracking-wide mb-6 shadow-sm backdrop-blur-md">
+            <motion.div
+              variants={itemVariants}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs md:text-sm font-semibold tracking-wide mb-6 shadow-sm backdrop-blur-md"
+            >
               <ShieldCheck className="w-4.5 h-4.5 text-indigo-400 animate-pulse" />
               <span>AWS CERTIFIED CLOUD PRACTITIONER</span>
-            </div>
+            </motion.div>
 
             {/* Headline */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight text-white leading-[1.1] mb-6">
+            <motion.h1
+              variants={itemVariants}
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight text-white leading-[1.1] mb-6"
+            >
               Gunasekaran Selvarasu
               <span className="block mt-2 bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
                 Senior Frontend Engineer
               </span>
-            </h1>
+            </motion.h1>
 
             {/* Subtitle */}
-            <p className="text-base sm:text-lg md:text-xl text-zinc-400 font-normal leading-relaxed max-w-2xl mb-10">
+            <motion.p
+              variants={itemVariants}
+              className="text-base sm:text-lg md:text-xl text-zinc-400 font-normal leading-relaxed max-w-2xl mb-10"
+            >
               Architecting high-performance, scalable web applications with React.js, Next.js, and Cloud Infrastructure. 
               5+ years of delivering enterprise-grade SaaS and e-commerce platforms.
-            </p>
+            </motion.p>
 
             {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4 mb-4 w-full sm:w-auto">
+            <motion.div
+              variants={itemVariants}
+              className="flex flex-col sm:flex-row gap-4 mb-4 w-full sm:w-auto"
+            >
               <button
                 onClick={() => handleScrollTo('#projects')}
                 className="flex items-center justify-center gap-2 px-8 py-4 rounded-full text-sm md:text-base font-semibold bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 text-white shadow-xl shadow-indigo-500/15 hover:shadow-indigo-500/25 transition-all duration-300 active:scale-95 group"
@@ -80,12 +117,15 @@ export default function Hero() {
               >
                 Get in Touch
               </button>
-            </div>
+            </motion.div>
           </div>
 
           {/* Right Column: Profile Photo Card */}
           <div className="col-span-1 lg:col-span-5 flex justify-center lg:justify-end">
-            <div className="relative group cursor-pointer">
+            <motion.div
+              variants={itemVariants}
+              className="relative group cursor-pointer"
+            >
               {/* Ambient glow backdrop */}
               <div className="absolute -inset-4 rounded-full bg-gradient-to-tr from-indigo-500 via-purple-500 to-cyan-500 opacity-20 blur-2xl group-hover:opacity-45 group-hover:blur-3xl transition-all duration-500 scale-95" />
               
@@ -93,21 +133,20 @@ export default function Hero() {
               <div className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-[320px] lg:h-[320px] xl:w-[360px] xl:h-[360px] rounded-full p-[3px] bg-gradient-to-tr from-zinc-800/60 via-zinc-700/60 to-zinc-800/60 group-hover:from-indigo-500 group-hover:via-purple-500 group-hover:to-cyan-500 transition-all duration-500 shadow-2xl shadow-black/80 overflow-hidden">
                 <div className="w-full h-full rounded-full overflow-hidden bg-zinc-900/90">
                   <img
-                    src="/profile.webp"
+                    src={profileImg}
                     alt="Gunasekaran Selvarasu"
-                    width="413"
-                    height="531"
-                    fetchPriority="high"
-                    loading="eager"
                     className="w-full h-full object-cover object-top scale-100 group-hover:scale-103 transition-transform duration-500 ease-out"
                   />
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* Quick Metrics Bar (Bottom anchor spanning all columns) */}
-          <div className="relative col-span-1 lg:col-span-12 grid grid-cols-2 lg:grid-cols-4 gap-4 w-full pt-8 mt-8">
+          <motion.div
+            variants={itemVariants}
+            className="relative col-span-1 lg:col-span-12 grid grid-cols-2 lg:grid-cols-4 gap-4 w-full pt-8 mt-8"
+          >
             {/* Faded Divider */}
             <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-800/80 to-transparent" />
             {metrics.map((metric, i) => {
@@ -130,8 +169,8 @@ export default function Hero() {
                 </div>
               );
             })}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

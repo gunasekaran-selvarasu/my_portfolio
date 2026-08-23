@@ -1,20 +1,14 @@
-import { useState, useEffect, Suspense } from 'react';
-import React from 'react';
+import { useState, useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
+import Skills from './components/Skills';
+import Experience from './components/Experience';
+import Projects from './components/Projects';
+import Education from './components/Education';
+import Contact from './components/Contact';
 import Footer from './components/Footer';
-
-const Skills = React.lazy(() => import('./components/Skills'));
-const Experience = React.lazy(() => import('./components/Experience'));
-const Projects = React.lazy(() => import('./components/Projects'));
-const Education = React.lazy(() => import('./components/Education'));
-const Contact = React.lazy(() => import('./components/Contact'));
 import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from "@vercel/speed-insights/react";
-
-const isLocal = typeof window !== 'undefined' && 
-  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
-const showAnalytics = import.meta.env.PROD && !isLocal;
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('about');
@@ -52,31 +46,21 @@ export default function App() {
       {/* Main Sections */}
       <main className="flex-1">
         <Hero />
-        <Suspense fallback={<div className="min-h-[400px] bg-zinc-950" />}>
-          <Skills />
-        </Suspense>
-        <Suspense fallback={<div className="min-h-[400px] bg-zinc-950" />}>
-          <Experience />
-        </Suspense>
-        <Suspense fallback={<div className="min-h-[400px] bg-zinc-950" />}>
-          <Projects />
-        </Suspense>
-        <Suspense fallback={<div className="min-h-[400px] bg-zinc-950" />}>
-          <Education />
-        </Suspense>
-        <Suspense fallback={<div className="min-h-[400px] bg-zinc-950" />}>
-          <Contact />
-        </Suspense>
+        <Skills />
+        <Experience />
+        <Projects />
+        <Education />
+        <Contact />
       </main>
 
       {/* Footer */}
       <Footer />
 
       {/* Vercel Analytics */}
-      {showAnalytics && <Analytics />}
+      <Analytics />
 
       {/* Vercel Speed Insights */}
-      {showAnalytics && <SpeedInsights />}
+      <SpeedInsights />
     </div>
   );
 }

@@ -1,20 +1,16 @@
-import { useState, useRef, Suspense } from 'react';
-import React from 'react';
+import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, MapPin, Linkedin, Github, Send, Copy, Check, MessageCircle, ExternalLink } from 'lucide-react';
-
-import type ReCAPTCHAComponent from 'react-google-recaptcha';
-
-const ReCAPTCHA = React.lazy(() => import('react-google-recaptcha'));
+import ReCAPTCHA from 'react-google-recaptcha';
+import emailjs from '@emailjs/browser';
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
   const [formState, setFormState] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
-  const [loadRecaptcha, setLoadRecaptcha] = useState(false);
 
-  const recaptchaRef = useRef<ReCAPTCHAComponent>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const copyEmail = () => {
     navigator.clipboard.writeText('sguna0100@gmail.com');
@@ -25,11 +21,6 @@ export default function Contact() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    setLoadRecaptcha(true);
-  };
-
-  const handleFormFocus = () => {
-    setLoadRecaptcha(true);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -59,7 +50,6 @@ export default function Contact() {
     };
 
     try {
-      const emailjs = (await import('@emailjs/browser')).default;
       await Promise.all([
         emailjs.send(serviceId, templateAdminId, templateParams, publicKey),
         emailjs.send(serviceId, templateCustomerId, templateParams, publicKey)
@@ -205,7 +195,7 @@ export default function Contact() {
                 Send a Message
               </h3>
 
-              <form onSubmit={handleSubmit} onFocus={handleFormFocus} className="space-y-5">
+              <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label htmlFor="name" className="text-xs font-bold text-zinc-400 uppercase tracking-wide">
@@ -257,18 +247,14 @@ export default function Contact() {
                 </div>
 
                 {/* Google reCAPTCHA Checkbox */}
-                {loadRecaptcha && (
-                  <div className="flex justify-center sm:justify-start pt-2 min-h-[78px]">
-                    <Suspense fallback={<div className="h-[78px] w-[302px] bg-zinc-900/50 animate-pulse rounded-xl border border-zinc-800/40" />}>
-                      <ReCAPTCHA
-                        ref={recaptchaRef}
-                        sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY || 'dummy_site_key'}
-                        onChange={(token) => setRecaptchaToken(token)}
-                        theme="dark"
-                      />
-                    </Suspense>
-                  </div>
-                )}
+                <div className="flex justify-center sm:justify-start pt-2">
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY || 'dummy_site_key'}
+                    onChange={(token) => setRecaptchaToken(token)}
+                    theme="dark"
+                  />
+                </div>
 
                 <button
                   type="submit"
