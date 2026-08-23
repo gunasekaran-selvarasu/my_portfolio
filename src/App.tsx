@@ -8,13 +8,14 @@ import Education from './components/Education';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('about');
 
   useEffect(() => {
     const sections = ['about', 'skills', 'experience', 'projects', 'cloud', 'contact'];
-    
+
     const observerOptions = {
       root: null,
       rootMargin: '-30% 0px -60% 0px', // Triggers when the section takes up the primary viewport area
@@ -57,6 +58,9 @@ export default function App() {
 
       {/* Vercel Analytics */}
       <Analytics />
+
+      {/* Vercel Speed Insights */}
+      <SpeedInsights />
     </div>
   );
 }
