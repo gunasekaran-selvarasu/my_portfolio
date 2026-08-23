@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Github, Linkedin, FileText } from 'lucide-react';
 import resumeUrl from '../assets/docs/GUNASEKARAN_SELVARASU_Resume_Updated.pdf';
 
@@ -47,15 +46,12 @@ export default function Header({ activeSection }: HeaderProps) {
   };
 
   return (
-    <motion.header
-      className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 animate-fade-in ${
         scrolled 
           ? 'py-4 bg-zinc-950/70 backdrop-blur-md border-zinc-800/40 shadow-lg shadow-zinc-950/20' 
           : 'py-6 bg-transparent border-transparent'
       }`}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.25 }}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
@@ -84,11 +80,7 @@ export default function Header({ activeSection }: HeaderProps) {
                 }`}
               >
                 {isActive && (
-                  <motion.span
-                    layoutId="activeNavIndicator"
-                    className="absolute inset-0 bg-zinc-800/60 rounded-full -z-10 border border-zinc-700/30"
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                  />
+                  <span className="absolute inset-0 bg-zinc-800/60 rounded-full -z-10 border border-zinc-700/30" />
                 )}
                 {link.name}
               </a>
@@ -140,15 +132,8 @@ export default function Header({ activeSection }: HeaderProps) {
       </div>
 
       {/* Mobile Navigation Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="lg:hidden w-full bg-zinc-950/95 backdrop-blur-lg border-b border-zinc-800/60 overflow-hidden"
-          >
+      {isOpen && (
+        <div className="lg:hidden w-full bg-zinc-950/95 backdrop-blur-lg border-b border-zinc-800/60 overflow-hidden animate-fade-in">
             <div className="px-6 py-6 flex flex-col gap-4">
               {navLinks.map((link) => {
                 const isActive = activeSection === link.href.slice(1);
@@ -195,9 +180,8 @@ export default function Header({ activeSection }: HeaderProps) {
                 Download Resume
               </a>
             </div>
-          </motion.div>
+          </div>
         )}
-      </AnimatePresence>
-    </motion.header>
+    </header>
   );
 }

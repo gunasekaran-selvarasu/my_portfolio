@@ -59,3 +59,13 @@ body {
   filter: blur(100px);
   pointer-events: none;
 }
+
+/* Optimized CSS Fade-In for LCP elements */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.35s ease-out forwards;
+}

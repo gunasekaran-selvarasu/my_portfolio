@@ -5,6 +5,11 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   build: {
+    modulePreload: {
+      resolveDependencies(_filename, deps) {
+        return deps.filter(dep => !dep.includes('framer-motion'));
+      }
+    },
     rollupOptions: {
       output: {
         manualChunks(id) {
