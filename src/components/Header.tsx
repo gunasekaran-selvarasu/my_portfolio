@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m as motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Github, Linkedin, FileText } from 'lucide-react';
 import resumeUrl from '../assets/docs/GUNASEKARAN_SELVARASU_Resume_Updated.pdf';
 

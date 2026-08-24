@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m as motion, AnimatePresence } from 'framer-motion';
 import { Github, ExternalLink, Tag, Cpu, ShoppingBag, LayoutDashboard } from 'lucide-react';
 
 const getProjectIcon = (category: string) => {

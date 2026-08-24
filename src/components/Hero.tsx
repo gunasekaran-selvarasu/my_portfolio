@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m as motion } from 'framer-motion';
 import { ArrowUpRight, Award, Zap, Code, ShieldCheck } from 'lucide-react';
 import profileWebp from '../assets/profile/gunasekaran_selvarasu.webp';
 import profileAvif from '../assets/profile/gunasekaran_selvarasu.avif';

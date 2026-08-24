@@ -1,5 +1,5 @@
 import { useState, useRef, lazy, Suspense } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m as motion, AnimatePresence } from 'framer-motion';
 import { Mail, MapPin, Linkedin, Github, Send, Copy, Check, MessageCircle, ExternalLink, ShieldCheck } from 'lucide-react';
 import type ReCAPTCHAType from 'react-google-recaptcha';
 

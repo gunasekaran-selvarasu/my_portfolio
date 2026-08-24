@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m as motion } from 'framer-motion';
 import { GraduationCap, Users, Bookmark, FileCheck, ShieldCheck } from 'lucide-react';
 
 export default function Education() {

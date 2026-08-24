@@ -1,4 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
+import { LazyMotion, domMax } from 'framer-motion';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Footer from './components/Footer';
@@ -65,43 +66,45 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col selection:bg-indigo-500/30 selection:text-indigo-200">
-      {/* Floating Header */}
-      <Header activeSection={activeSection} />
+    <LazyMotion features={domMax} strict>
+      <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col selection:bg-indigo-500/30 selection:text-indigo-200">
+        {/* Floating Header */}
+        <Header activeSection={activeSection} />
 
-      {/* Main Content Sections */}
-      <main className="flex-1">
-        {/* Above-the-fold Hero Section (Immediate render for LCP <= 1.2s) */}
-        <Hero />
+        {/* Main Content Sections */}
+        <main className="flex-1">
+          {/* Above-the-fold Hero Section (Immediate render for LCP <= 1.2s) */}
+          <Hero />
 
-        {/* Below-the-fold lazy-loaded sections with layout-stable skeletons for TBT <= 150ms */}
-        <Suspense fallback={<SkillsSkeleton />}>
-          <Skills />
-        </Suspense>
+          {/* Below-the-fold lazy-loaded sections with layout-stable skeletons for TBT <= 150ms */}
+          <Suspense fallback={<SkillsSkeleton />}>
+            <Skills />
+          </Suspense>
 
-        <Suspense fallback={<ExperienceSkeleton />}>
-          <Experience />
-        </Suspense>
+          <Suspense fallback={<ExperienceSkeleton />}>
+            <Experience />
+          </Suspense>
 
-        <Suspense fallback={<ProjectsSkeleton />}>
-          <Projects />
-        </Suspense>
+          <Suspense fallback={<ProjectsSkeleton />}>
+            <Projects />
+          </Suspense>
 
-        <Suspense fallback={<EducationSkeleton />}>
-          <Education />
-        </Suspense>
+          <Suspense fallback={<EducationSkeleton />}>
+            <Education />
+          </Suspense>
 
-        <Suspense fallback={<ContactSkeleton />}>
-          <Contact />
-        </Suspense>
-      </main>
+          <Suspense fallback={<ContactSkeleton />}>
+            <Contact />
+          </Suspense>
+        </main>
 
-      {/* Footer */}
-      <Footer />
+        {/* Footer */}
+        <Footer />
 
-      {/* Vercel Analytics & Speed Insights */}
-      <Analytics />
-      <SpeedInsights />
-    </div>
+        {/* Vercel Analytics & Speed Insights */}
+        <Analytics />
+        <SpeedInsights />
+      </div>
+    </LazyMotion>
   );
 }

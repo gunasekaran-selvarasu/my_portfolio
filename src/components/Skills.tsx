@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m as motion } from 'framer-motion';
 import {
   Code, Cloud, CreditCard, Shield, Globe,
   Layers, CheckCircle, ExternalLink, Zap

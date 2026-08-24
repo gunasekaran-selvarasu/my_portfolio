@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m as motion, AnimatePresence } from 'framer-motion';
 import { Briefcase, Calendar, ChevronDown, ChevronUp, MapPin } from 'lucide-react';
 
 interface Position {
