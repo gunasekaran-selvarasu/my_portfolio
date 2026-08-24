@@ -51,11 +51,11 @@ export default function Education() {
   ];
 
   return (
-    <section id="cloud" className="relative py-24 bg-zinc-950/60 overflow-hidden">
+    <section id="cloud" className="relative py-24 bg-zinc-950/60 overflow-hidden" aria-label="Education and Leadership Strengths">
       {/* Top Faded Divider */}
-      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-800/80 to-transparent" />
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-800/80 to-transparent" aria-hidden="true" />
       {/* Background Gradients */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0" aria-hidden="true">
         <div className="absolute bottom-10 left-1/4 w-[400px] h-[300px] rounded-full bg-cyan-500/5 glow-blur" />
         <div className="absolute top-10 right-1/4 w-[400px] h-[300px] rounded-full bg-indigo-500/5 glow-blur" />
       </div>
@@ -74,7 +74,7 @@ export default function Education() {
               <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
                 Education & Qualifications
               </h2>
-              <p className="text-zinc-400 text-sm sm:text-base leading-relaxed">
+              <p className="text-zinc-300 text-sm sm:text-base leading-relaxed">
                 Academic foundation of computer applications, algorithm structures, and web technologies.
               </p>
             </div>
@@ -85,10 +85,10 @@ export default function Education() {
                 variants={itemVariants}
                 className="glass-card p-6 rounded-2xl border border-zinc-800/40 relative overflow-hidden group hover:border-zinc-700/50 transition-all duration-300"
               >
-                <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/5 rounded-bl-full group-hover:bg-indigo-500/10 transition-colors" />
+                <div className="absolute top-0 right-0 w-24 h-24 bg-indigo-500/5 rounded-bl-full group-hover:bg-indigo-500/10 transition-colors" aria-hidden="true" />
                 <div className="flex items-start gap-4">
                   <div className="p-3 bg-indigo-500/10 text-indigo-400 rounded-xl">
-                    <GraduationCap className="w-6 h-6" />
+                    <GraduationCap className="w-6 h-6" aria-hidden="true" />
                   </div>
                   <div className="space-y-2">
                     <div className="space-y-0.5">
@@ -96,15 +96,15 @@ export default function Education() {
                       <h3 className="text-lg font-bold text-white leading-snug">
                         Master of Computer Applications (MCA)
                       </h3>
-                      <p className="text-sm font-semibold text-zinc-400">
+                      <p className="text-sm font-semibold text-zinc-300">
                         E.G.S. Pillay Engineering College (Autonomous)
                       </p>
                     </div>
                     <div className="flex items-center gap-3 pt-2">
-                      <span className="text-xs font-bold px-3 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 shrink-0">
+                      <span className="text-xs font-bold px-3 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-200 shrink-0">
                         CGPA: 8.95 / 10
                       </span>
-                      <span className="text-xs font-semibold text-zinc-550">
+                      <span className="text-xs font-semibold text-zinc-400">
                         First Class with Distinction
                       </span>
                     </div>
@@ -117,10 +117,10 @@ export default function Education() {
                 variants={itemVariants}
                 className="glass-card p-6 rounded-2xl border border-zinc-800/40 relative overflow-hidden group hover:border-zinc-700/50 transition-all duration-300"
               >
-                <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-bl-full group-hover:bg-cyan-500/10 transition-colors" />
+                <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-bl-full group-hover:bg-cyan-500/10 transition-colors" aria-hidden="true" />
                 <div className="flex items-start gap-4">
                   <div className="p-3 bg-cyan-500/10 text-cyan-400 rounded-xl">
-                    <GraduationCap className="w-6 h-6" />
+                    <GraduationCap className="w-6 h-6" aria-hidden="true" />
                   </div>
                   <div className="space-y-2">
                     <div className="space-y-0.5">
@@ -128,15 +128,15 @@ export default function Education() {
                       <h3 className="text-lg font-bold text-white leading-snug">
                         Bachelor of Computer Applications (BCA)
                       </h3>
-                      <p className="text-sm font-semibold text-zinc-400">
+                      <p className="text-sm font-semibold text-zinc-300">
                         E.G.S. Pillay Arts and Science College
                       </p>
                     </div>
                     <div className="flex items-center gap-3 pt-2">
-                      <span className="text-xs font-bold px-3 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 shrink-0">
+                      <span className="text-xs font-bold px-3 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-200 shrink-0">
                         Score: 79.5%
                       </span>
-                      <span className="text-xs font-semibold text-zinc-550">
+                      <span className="text-xs font-semibold text-zinc-400">
                         First Class
                       </span>
                     </div>
@@ -152,7 +152,7 @@ export default function Education() {
               <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
                 Leadership & Interpersonal Strengths
               </h2>
-              <p className="text-zinc-400 text-sm sm:text-base leading-relaxed">
+              <p className="text-zinc-300 text-sm sm:text-base leading-relaxed">
                 Core philosophies for cultivating collaborative engineering culture and accelerating software deliverables.
               </p>
             </div>
@@ -168,13 +168,13 @@ export default function Education() {
                   >
                     <div className="flex items-center gap-3 mb-3">
                       <div className={`p-2 rounded-lg ${item.bg} ${item.color}`}>
-                        <IconComp className="w-5 h-5" />
+                        <IconComp className="w-5 h-5" aria-hidden="true" />
                       </div>
                       <h3 className="text-base font-bold text-white group-hover:text-indigo-400 transition-colors">
                         {item.title}
                       </h3>
                     </div>
-                    <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
                       {item.description}
                     </p>
                   </motion.div>

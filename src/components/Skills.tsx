@@ -59,10 +59,10 @@ export default function Skills() {
   ];
 
   return (
-    <section id="skills" className="relative py-24 bg-zinc-950 overflow-hidden">
+    <section id="skills" className="relative py-24 bg-zinc-950 overflow-hidden" aria-label="Technical Skills and Architecture">
       {/* Top Faded Divider */}
-      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-800/80 to-transparent" />
-      <div className="absolute inset-0 z-0">
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-800/80 to-transparent" aria-hidden="true" />
+      <div className="absolute inset-0 z-0" aria-hidden="true">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] rounded-full bg-cyan-500/5 glow-blur" />
       </div>
 
@@ -71,7 +71,7 @@ export default function Skills() {
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
             Technical Arsenal & Cloud Competencies
           </h2>
-          <p className="text-zinc-400 text-base sm:text-lg">
+          <p className="text-zinc-300 text-base sm:text-lg">
             A comprehensive overview of my backend-friendly frontend frameworks, DevOps practices, and cloud-native architecture solutions.
           </p>
         </div>
@@ -88,19 +88,19 @@ export default function Skills() {
             variants={cardVariants}
             className="md:col-span-2 glass-card p-8 rounded-3xl border border-zinc-800/40 relative overflow-hidden group hover:border-zinc-700/50 transition-all duration-300"
           >
-            <div className="absolute -right-20 -top-20 w-48 h-48 bg-indigo-500/10 rounded-full glow-blur group-hover:bg-indigo-500/15 transition-colors" />
+            <div className="absolute -right-20 -top-20 w-48 h-48 bg-indigo-500/10 rounded-full glow-blur group-hover:bg-indigo-500/15 transition-colors" aria-hidden="true" />
 
             <div className="flex items-center gap-3 mb-6">
               <div className="p-2.5 bg-indigo-500/10 text-indigo-400 rounded-xl">
-                <Code className="w-6 h-6" />
+                <Code className="w-6 h-6" aria-hidden="true" />
               </div>
               <div>
                 <h3 className="text-xl font-bold text-white">Core Stack & Architecture</h3>
-                <p className="text-xs text-indigo-400/80 font-medium">Frontend, Backend & CMS</p>
+                <p className="text-xs text-indigo-300 font-medium">Frontend, Backend & CMS</p>
               </div>
             </div>
 
-            <p className="text-sm text-zinc-400 mb-6 leading-relaxed">
+            <p className="text-sm text-zinc-300 mb-6 leading-relaxed">
               Engineering web systems using robust frontend libraries (React/Next.js), structured backend frameworks (Laravel/PHP), modular databases, and custom WordPress child-themes.
             </p>
 
@@ -108,12 +108,12 @@ export default function Skills() {
               {frontendSkills.map((skill, index) => (
                 <div
                   key={index}
-                  className="bg-zinc-900/60 border border-zinc-850 hover:border-indigo-500/30 p-3.5 rounded-2xl flex flex-col justify-between transition-all group/item"
+                  className="bg-zinc-900/60 border border-zinc-800 hover:border-indigo-500/30 p-3.5 rounded-2xl flex flex-col justify-between transition-all group/item"
                 >
                   <span className="text-sm font-semibold text-white group-hover/item:text-indigo-300 transition-colors">
                     {skill.name}
                   </span>
-                  <span className="text-[10px] uppercase font-bold text-zinc-500 mt-1">
+                  <span className="text-[10px] uppercase font-bold text-zinc-400 mt-1">
                     {skill.level}
                   </span>
                 </div>
@@ -127,8 +127,8 @@ export default function Skills() {
             className="md:row-span-2 bg-gradient-to-br from-indigo-950/40 via-zinc-900/40 to-cyan-950/40 backdrop-blur-xl p-8 rounded-3xl border border-indigo-500/20 relative overflow-hidden flex flex-col justify-between group shadow-xl shadow-indigo-500/5 hover:border-indigo-400/40 transition-all duration-300"
           >
             {/* Holographic glowing borders */}
-            <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-amber-500 via-indigo-500 to-cyan-500" />
-            <div className="absolute -left-10 -bottom-10 w-44 h-44 bg-cyan-500/10 rounded-full glow-blur" />
+            <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-amber-500 via-indigo-500 to-cyan-500" aria-hidden="true" />
+            <div className="absolute -left-10 -bottom-10 w-44 h-44 bg-cyan-500/10 rounded-full glow-blur" aria-hidden="true" />
 
             <div className="z-10 flex flex-col justify-between h-full w-full">
               <div>
@@ -138,13 +138,14 @@ export default function Skills() {
                   </span>
                 </div>
 
-                {/* Credly Badge Embed */}
+                {/* Credly Badge Embed with lazy loading & layout preservation */}
                 <div className="flex justify-center mb-6 min-h-[270px] w-full">
                   <iframe
                     src="https://www.credly.com/embedded_badge/da73f66c-5901-455c-a2c6-0748ee3e55af"
                     width="300"
                     height="300"
-                    title="AWS Certified Cloud Practitioner Badge"
+                    title="AWS Certified Cloud Practitioner Credly Verification Badge"
+                    loading="lazy"
                     className="border-0"
                     scrolling="no"
                   />
@@ -157,26 +158,26 @@ export default function Skills() {
                   <p className="text-sm font-semibold text-zinc-300">
                     Cloud Practitioner
                   </p>
-                  <p className="text-xs text-zinc-500 mt-1 font-medium">
+                  <p className="text-xs text-zinc-400 mt-1 font-medium">
                     Amazon Web Services (AWS)
                   </p>
                 </div>
 
                 <div className="space-y-3.5 mb-8">
-                  <div className="flex items-center gap-2.5 text-xs text-zinc-400 font-medium justify-center">
-                    <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <div className="flex items-center gap-2.5 text-xs text-zinc-300 font-medium justify-center">
+                    <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" aria-hidden="true" />
                     <span>Cloud Design & Architecture</span>
                   </div>
-                  <div className="flex items-center gap-2.5 text-xs text-zinc-400 font-medium justify-center">
-                    <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <div className="flex items-center gap-2.5 text-xs text-zinc-300 font-medium justify-center">
+                    <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" aria-hidden="true" />
                     <span>AWS Global Infrastructure</span>
                   </div>
-                  <div className="flex items-center gap-2.5 text-xs text-zinc-400 font-medium justify-center">
-                    <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <div className="flex items-center gap-2.5 text-xs text-zinc-300 font-medium justify-center">
+                    <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" aria-hidden="true" />
                     <span>Security & Compliance Audits</span>
                   </div>
-                  <div className="flex items-center gap-2.5 text-xs text-zinc-400 font-medium justify-center">
-                    <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <div className="flex items-center gap-2.5 text-xs text-zinc-300 font-medium justify-center">
+                    <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" aria-hidden="true" />
                     <span>Billing, Pricing, & Optimization</span>
                   </div>
                 </div>
@@ -188,10 +189,11 @@ export default function Skills() {
                 href="https://www.credly.com/badges/da73f66c-5901-455c-a2c6-0748ee3e55af/public_url"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-zinc-700 font-semibold text-sm transition-all"
+                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl bg-zinc-900 border border-zinc-800 text-zinc-200 hover:text-white hover:border-zinc-700 font-semibold text-sm transition-all"
+                aria-label="Verify AWS Cloud Practitioner Credential on Credly (opens in new tab)"
               >
                 <span>Verify Credential</span>
-                <ExternalLink className="w-3.5 h-3.5" />
+                <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
               </a>
             </div>
           </motion.div>
@@ -201,15 +203,15 @@ export default function Skills() {
             variants={cardVariants}
             className="glass-card p-8 rounded-3xl border border-zinc-800/40 relative overflow-hidden group hover:border-zinc-700/50 transition-all duration-300"
           >
-            <div className="absolute -right-20 -bottom-20 w-36 h-36 bg-cyan-500/10 rounded-full glow-blur" />
+            <div className="absolute -right-20 -bottom-20 w-36 h-36 bg-cyan-500/10 rounded-full glow-blur" aria-hidden="true" />
 
             <div className="flex items-center gap-3 mb-6">
               <div className="p-2.5 bg-cyan-500/10 text-cyan-400 rounded-xl">
-                <Layers className="w-6 h-6" />
+                <Layers className="w-6 h-6" aria-hidden="true" />
               </div>
               <div>
                 <h3 className="text-xl font-bold text-white">Architecture</h3>
-                <p className="text-xs text-cyan-400/80 font-medium">Integrations & Workflows</p>
+                <p className="text-xs text-cyan-300 font-medium">Integrations & Workflows</p>
               </div>
             </div>
 
@@ -219,10 +221,10 @@ export default function Skills() {
                 return (
                   <div key={index} className="flex items-center justify-between py-2 border-b border-zinc-900/60 last:border-0">
                     <div className="flex items-center gap-3">
-                      <IconComponent className="w-4 h-4 text-zinc-500 group-hover:text-cyan-400 transition-colors shrink-0" />
-                      <span className="text-sm font-medium text-zinc-350">{skill.name}</span>
+                      <IconComponent className="w-4 h-4 text-zinc-400 group-hover:text-cyan-400 transition-colors shrink-0" aria-hidden="true" />
+                      <span className="text-sm font-medium text-zinc-300">{skill.name}</span>
                     </div>
-                    <span className="text-[10px] font-bold text-zinc-650 bg-zinc-900/50 px-2.5 py-0.5 rounded-full border border-zinc-850">
+                    <span className="text-[10px] font-bold text-zinc-400 bg-zinc-900/50 px-2.5 py-0.5 rounded-full border border-zinc-800">
                       Active
                     </span>
                   </div>
@@ -236,19 +238,19 @@ export default function Skills() {
             variants={cardVariants}
             className="md:col-span-1 glass-card p-8 rounded-3xl border border-zinc-800/40 relative overflow-hidden group hover:border-zinc-700/50 transition-all duration-300"
           >
-            <div className="absolute -left-10 -bottom-10 w-44 h-44 bg-cyan-500/10 rounded-full glow-blur" />
+            <div className="absolute -left-10 -bottom-10 w-44 h-44 bg-cyan-500/10 rounded-full glow-blur" aria-hidden="true" />
 
             <div className="flex items-center gap-3 mb-6">
               <div className="p-2.5 bg-cyan-500/10 text-cyan-400 rounded-xl">
-                <Cloud className="w-6 h-6" />
+                <Cloud className="w-6 h-6" aria-hidden="true" />
               </div>
               <div>
                 <h3 className="text-xl font-bold text-white">Cloud Deployments & DevOps</h3>
-                <p className="text-xs text-cyan-400/80 font-medium">AWS Infrastructure & CI/CD Pipelines</p>
+                <p className="text-xs text-cyan-300 font-medium">AWS Infrastructure & CI/CD Pipelines</p>
               </div>
             </div>
 
-            <p className="text-sm text-zinc-400 mb-6 leading-relaxed">
+            <p className="text-sm text-zinc-300 mb-6 leading-relaxed">
               Managing AWS setups for security, low-latency asset delivery (CloudFront CDN), cost-efficiency (S3/EC2 optimization), custom routing (Route 53), and auto-triggered GitHub Action releases.
             </p>
 
@@ -256,11 +258,11 @@ export default function Skills() {
               {cloudSkills.map((skill, index) => (
                 <div
                   key={index}
-                  className="px-3.5 py-2 bg-zinc-900/50 border border-zinc-850/60 rounded-xl flex items-center gap-2 hover:border-zinc-700 hover:bg-zinc-900/80 transition-colors"
+                  className="px-3.5 py-2 bg-zinc-900/50 border border-zinc-800 rounded-xl flex items-center gap-2 hover:border-zinc-700 hover:bg-zinc-900/80 transition-colors"
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0" aria-hidden="true" />
                   <span className="text-sm font-semibold text-zinc-200">{skill.name}</span>
-                  <span className="text-[9px] font-bold text-zinc-550 bg-zinc-950/80 px-2 py-0.5 rounded border border-zinc-850">
+                  <span className="text-[9px] font-bold text-zinc-400 bg-zinc-950/80 px-2 py-0.5 rounded border border-zinc-800">
                     {skill.category}
                   </span>
                 </div>

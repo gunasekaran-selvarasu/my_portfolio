@@ -69,10 +69,10 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative py-24 bg-zinc-950 overflow-hidden">
+    <section id="contact" className="relative py-24 bg-zinc-950 overflow-hidden" aria-label="Contact and Inquiries">
       {/* Top Faded Divider */}
-      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-800/80 to-transparent" />
-      <div className="absolute inset-0 z-0">
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-800/80 to-transparent" aria-hidden="true" />
+      <div className="absolute inset-0 z-0" aria-hidden="true">
         <div className="absolute top-1/2 right-10 w-[400px] h-[400px] bg-indigo-500/5 glow-blur" />
       </div>
 
@@ -81,7 +81,7 @@ export default function Contact() {
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
             Get In Touch
           </h2>
-          <p className="text-zinc-400 text-base sm:text-lg">
+          <p className="text-zinc-300 text-base sm:text-lg">
             Let's collaborate on enterprise frontend products, performance audits, or cloud infrastructure setups.
           </p>
         </div>
@@ -96,34 +96,39 @@ export default function Contact() {
             {/* Copyable Email Card */}
             <div
               onClick={copyEmail}
-              className="glass-card p-5 rounded-2xl border border-zinc-800/40 hover:border-indigo-500/30 hover:bg-zinc-900/10 cursor-pointer flex items-center justify-between group transition-all duration-300"
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); copyEmail(); } }}
+              className="glass-card p-5 rounded-2xl border border-zinc-800/40 hover:border-indigo-500/30 hover:bg-zinc-900/10 cursor-pointer flex items-center justify-between group transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/50"
+              aria-label="Click to copy email address sguna0100@gmail.com"
             >
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-indigo-500/10 text-indigo-400 rounded-xl group-hover:bg-indigo-500/20 transition-colors">
-                  <Mail className="w-5 h-5" />
+                  <Mail className="w-5 h-5" aria-hidden="true" />
                 </div>
                 <div>
-                  <span className="text-[10px] uppercase font-bold text-zinc-550 block">Email Address</span>
+                  <span className="text-[10px] uppercase font-bold text-zinc-400 block">Email Address</span>
                   <span className="text-sm font-semibold text-zinc-200 group-hover:text-white transition-colors">
                     sguna0100@gmail.com
                   </span>
                 </div>
               </div>
               <button
+                type="button"
                 className={`p-2 rounded-lg border border-zinc-800 text-zinc-400 group-hover:text-white transition-all duration-300 shrink-0 ${copied ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' : 'bg-zinc-900/60'}`}
-                aria-label="Copy email to clipboard"
+                aria-label="Copy email address"
               >
-                {copied ? <Check className="w-4 h-4 text-emerald-400 animate-scale-up" /> : <Copy className="w-4 h-4" />}
+                {copied ? <Check className="w-4 h-4 text-emerald-400 animate-scale-up" aria-hidden="true" /> : <Copy className="w-4 h-4" aria-hidden="true" />}
               </button>
             </div>
 
             {/* Location Card */}
             <div className="glass-card p-5 rounded-2xl border border-zinc-800/40 flex items-center gap-4">
               <div className="p-3 bg-cyan-500/10 text-cyan-400 rounded-xl">
-                <MapPin className="w-5 h-5" />
+                <MapPin className="w-5 h-5" aria-hidden="true" />
               </div>
               <div>
-                <span className="text-[10px] uppercase font-bold text-zinc-550 block">Location</span>
+                <span className="text-[10px] uppercase font-bold text-zinc-400 block">Location</span>
                 <span className="text-sm font-semibold text-zinc-200">
                   Chennai, Tamil Nadu, India
                 </span>
@@ -132,28 +137,29 @@ export default function Contact() {
 
             {/* WhatsApp Card */}
             <a
-              href="https://wa.me/918973221644?text=Hi%20Gunasekaran,%20I'd%20love%2520to%2520connect!"
+              href="https://wa.me/918973221644?text=Hi%20Gunasekaran,%20I'd%20love%20to%20connect!"
               target="_blank"
               rel="noopener noreferrer"
               className="glass-card p-5 rounded-2xl border border-zinc-800/40 hover:border-emerald-500/35 hover:bg-zinc-900/10 cursor-pointer flex items-center justify-between group transition-all duration-300"
+              aria-label="Chat with Gunasekaran on WhatsApp (opens in new tab)"
             >
               <div className="flex items-center gap-4">
                 <div className="p-3 bg-emerald-500/10 text-emerald-400 rounded-xl group-hover:bg-emerald-500/20 transition-colors">
-                  <MessageCircle className="w-5 h-5" />
+                  <MessageCircle className="w-5 h-5" aria-hidden="true" />
                 </div>
                 <div>
-                  <span className="text-[10px] uppercase font-bold text-zinc-550 block">WhatsApp Chat</span>
+                  <span className="text-[10px] uppercase font-bold text-zinc-400 block">WhatsApp Chat</span>
                   <span className="text-sm font-semibold text-zinc-200 group-hover:text-white transition-colors">
                     +91 89732 21644
                   </span>
                 </div>
               </div>
-              <button
-                className="p-2 rounded-lg border border-zinc-800 text-zinc-400 group-hover:text-emerald-450 bg-zinc-900/60 transition-all duration-300 shrink-0"
-                aria-label="Chat on WhatsApp"
+              <span
+                className="p-2 rounded-lg border border-zinc-800 text-zinc-400 group-hover:text-emerald-400 bg-zinc-900/60 transition-all duration-300 shrink-0"
+                aria-hidden="true"
               >
                 <ExternalLink className="w-4 h-4" />
-              </button>
+              </span>
             </a>
 
             {/* Social Links Grid */}
@@ -163,9 +169,10 @@ export default function Contact() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="glass-card p-5 rounded-2xl border border-zinc-800/40 hover:border-zinc-700/60 hover:bg-zinc-900/10 flex flex-col justify-between h-28 group transition-all duration-300"
+                aria-label="View Gunasekaran's LinkedIn Profile (opens in new tab)"
               >
                 <div className="p-2.5 bg-blue-500/10 text-blue-400 rounded-xl self-start">
-                  <Linkedin className="w-5 h-5" />
+                  <Linkedin className="w-5 h-5" aria-hidden="true" />
                 </div>
                 <span className="text-xs font-bold text-zinc-300 group-hover:text-white transition-colors">
                   LinkedIn Profile
@@ -177,9 +184,10 @@ export default function Contact() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="glass-card p-5 rounded-2xl border border-zinc-800/40 hover:border-zinc-700/60 hover:bg-zinc-900/10 flex flex-col justify-between h-28 group transition-all duration-300"
+                aria-label="View Gunasekaran's GitHub Profile (opens in new tab)"
               >
-                <div className="p-2.5 bg-zinc-900/60 text-zinc-300 rounded-xl self-start border border-zinc-850">
-                  <Github className="w-5 h-5" />
+                <div className="p-2.5 bg-zinc-900/60 text-zinc-300 rounded-xl self-start border border-zinc-800">
+                  <Github className="w-5 h-5" aria-hidden="true" />
                 </div>
                 <span className="text-xs font-bold text-zinc-300 group-hover:text-white transition-colors">
                   GitHub Profile
@@ -198,51 +206,56 @@ export default function Contact() {
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <label htmlFor="name" className="text-xs font-bold text-zinc-400 uppercase tracking-wide">
-                      Full Name
+                    <label htmlFor="name" className="text-xs font-bold text-zinc-300 uppercase tracking-wide">
+                      Full Name <span className="text-rose-400" aria-hidden="true">*</span>
                     </label>
                     <input
                       type="text"
                       id="name"
                       name="name"
                       required
+                      autoComplete="name"
+                      aria-required="true"
                       value={formData.name}
                       onChange={handleInputChange}
                       placeholder="John Doe"
-                      className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-indigo-500/80 focus:ring-1 focus:ring-indigo-500/50 rounded-xl px-4 py-3.5 text-sm text-white placeholder-zinc-550 focus:outline-none transition-all duration-300"
+                      className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-indigo-500/80 focus:ring-1 focus:ring-indigo-500/50 rounded-xl px-4 py-3.5 text-sm text-white placeholder-zinc-500 focus:outline-none transition-all duration-300"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="email" className="text-xs font-bold text-zinc-400 uppercase tracking-wide">
-                      Email Address
+                    <label htmlFor="email" className="text-xs font-bold text-zinc-300 uppercase tracking-wide">
+                      Email Address <span className="text-rose-400" aria-hidden="true">*</span>
                     </label>
                     <input
                       type="email"
                       id="email"
                       name="email"
                       required
+                      autoComplete="email"
+                      aria-required="true"
                       value={formData.email}
                       onChange={handleInputChange}
                       placeholder="john@example.com"
-                      className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-indigo-500/80 focus:ring-1 focus:ring-indigo-500/50 rounded-xl px-4 py-3.5 text-sm text-white placeholder-zinc-550 focus:outline-none transition-all duration-300"
+                      className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-indigo-500/80 focus:ring-1 focus:ring-indigo-500/50 rounded-xl px-4 py-3.5 text-sm text-white placeholder-zinc-500 focus:outline-none transition-all duration-300"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="message" className="text-xs font-bold text-zinc-400 uppercase tracking-wide">
-                    Message
+                  <label htmlFor="message" className="text-xs font-bold text-zinc-300 uppercase tracking-wide">
+                    Message <span className="text-rose-400" aria-hidden="true">*</span>
                   </label>
                   <textarea
                     id="message"
                     name="message"
                     required
+                    aria-required="true"
                     rows={5}
                     value={formData.message}
                     onChange={handleInputChange}
                     placeholder="Describe your project, timeline, and requirements..."
-                    className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-indigo-500/80 focus:ring-1 focus:ring-indigo-500/50 rounded-xl px-4 py-3.5 text-sm text-white placeholder-zinc-550 focus:outline-none transition-all duration-300 resize-none"
+                    className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-indigo-500/80 focus:ring-1 focus:ring-indigo-500/50 rounded-xl px-4 py-3.5 text-sm text-white placeholder-zinc-500 focus:outline-none transition-all duration-300 resize-none"
                   />
                 </div>
 
@@ -259,6 +272,7 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={formState !== 'idle' || !recaptchaToken}
+                  aria-label="Send contact form message"
                   className={`w-full flex items-center justify-center gap-2 py-4 rounded-xl text-sm font-bold tracking-wide shadow-md active:scale-[0.98] transition-all duration-300 cursor-pointer ${formState === 'success'
                     ? 'bg-emerald-500 hover:bg-emerald-600 text-white shadow-emerald-500/10'
                     : formState === 'error'
@@ -269,18 +283,18 @@ export default function Contact() {
                   {formState === 'idle' && (
                     <>
                       <span>Send Message</span>
-                      <Send className="w-4 h-4" />
+                      <Send className="w-4 h-4" aria-hidden="true" />
                     </>
                   )}
                   {formState === 'sending' && (
                     <>
-                      <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" aria-hidden="true" />
                       <span>Sending...</span>
                     </>
                   )}
                   {formState === 'success' && (
                     <>
-                      <Check className="w-4 h-4 text-white" />
+                      <Check className="w-4 h-4 text-white" aria-hidden="true" />
                       <span>Message Sent Successfully!</span>
                     </>
                   )}
@@ -295,6 +309,8 @@ export default function Contact() {
               <AnimatePresence>
                 {formState === 'success' && (
                   <motion.div
+                    role="status"
+                    aria-live="polite"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
@@ -305,10 +321,12 @@ export default function Contact() {
                 )}
                 {formState === 'error' && (
                   <motion.div
+                    role="alert"
+                    aria-live="assertive"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
-                    className="mt-4 p-3 bg-rose-500/10 border border-rose-500/20 text-rose-450 text-xs text-center rounded-xl font-medium"
+                    className="mt-4 p-3 bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs text-center rounded-xl font-medium"
                   >
                     Failed to send email. Please check your internet connection or configurations.
                   </motion.div>

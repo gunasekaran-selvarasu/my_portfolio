@@ -15,7 +15,7 @@ export default function Header({ activeSection }: HeaderProps) {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -63,6 +63,7 @@ export default function Header({ activeSection }: HeaderProps) {
           href="#about" 
           onClick={(e) => handleLinkClick(e, '#about')}
           className="text-2xl font-bold tracking-tight text-white flex items-center gap-1 group"
+          aria-label="Gunasekaran Selvarasu Portfolio Homepage"
         >
           <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent group-hover:opacity-85 transition-opacity">
             Gunasekaran
@@ -71,7 +72,7 @@ export default function Header({ activeSection }: HeaderProps) {
         </a>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-1 bg-zinc-900/40 border border-zinc-800/50 rounded-full px-2 py-1.5 backdrop-blur-sm">
+        <nav className="hidden lg:flex items-center gap-1 bg-zinc-900/40 border border-zinc-800/50 rounded-full px-2 py-1.5 backdrop-blur-sm" aria-label="Desktop Main Navigation">
           {navLinks.map((link) => {
             const isActive = activeSection === link.href.slice(1);
             return (
@@ -80,7 +81,7 @@ export default function Header({ activeSection }: HeaderProps) {
                 href={link.href}
                 onClick={(e) => handleLinkClick(e, link.href)}
                 className={`relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 ${
-                  isActive ? 'text-white' : 'text-zinc-400 hover:text-zinc-200'
+                  isActive ? 'text-white' : 'text-zinc-400 hover:text-zinc-100'
                 }`}
               >
                 {isActive && (
@@ -103,18 +104,18 @@ export default function Header({ activeSection }: HeaderProps) {
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 text-zinc-400 hover:text-white transition-colors hover:bg-zinc-900/60 rounded-full border border-zinc-800/30"
-            aria-label="GitHub"
+            aria-label="Gunasekaran's GitHub Profile (opens in new tab)"
           >
-            <Github className="w-5 h-5" />
+            <Github className="w-5 h-5" aria-hidden="true" />
           </a>
           <a
             href="https://linkedin.com/in/gunasekaran-selvarasu"
             target="_blank"
             rel="noopener noreferrer"
             className="p-2 text-zinc-400 hover:text-white transition-colors hover:bg-zinc-900/60 rounded-full border border-zinc-800/30"
-            aria-label="LinkedIn"
+            aria-label="Gunasekaran's LinkedIn Profile (opens in new tab)"
           >
-            <Linkedin className="w-5 h-5" />
+            <Linkedin className="w-5 h-5" aria-hidden="true" />
           </a>
           
           <a
@@ -123,8 +124,9 @@ export default function Header({ activeSection }: HeaderProps) {
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 text-white shadow-md shadow-indigo-500/10 hover:shadow-indigo-500/20 active:scale-95 transition-all"
+            aria-label="Download Gunasekaran's Resume (PDF)"
           >
-            <FileText className="w-4 h-4" />
+            <FileText className="w-4 h-4" aria-hidden="true" />
             <span>Resume</span>
           </a>
         </div>
@@ -132,10 +134,12 @@ export default function Header({ activeSection }: HeaderProps) {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="lg:hidden p-2 text-zinc-400 hover:text-white focus:outline-none hover:bg-zinc-900/60 rounded-lg border border-zinc-850"
-          aria-label="Toggle menu"
+          aria-expanded={isOpen}
+          aria-controls="mobile-menu"
+          className="lg:hidden p-2 text-zinc-400 hover:text-white focus:outline-none hover:bg-zinc-900/60 rounded-lg border border-zinc-800"
+          aria-label="Toggle navigation menu"
         >
-          {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {isOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
         </button>
       </div>
 
@@ -143,13 +147,14 @@ export default function Header({ activeSection }: HeaderProps) {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id="mobile-menu"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
             className="lg:hidden w-full bg-zinc-950/95 backdrop-blur-lg border-b border-zinc-800/60 overflow-hidden"
           >
-            <div className="px-6 py-6 flex flex-col gap-4">
+            <nav className="px-6 py-6 flex flex-col gap-4" aria-label="Mobile Navigation">
               {navLinks.map((link) => {
                 const isActive = activeSection === link.href.slice(1);
                 return (
@@ -158,7 +163,7 @@ export default function Header({ activeSection }: HeaderProps) {
                     href={link.href}
                     onClick={(e) => handleLinkClick(e, link.href)}
                     className={`py-2 text-lg font-medium border-b border-zinc-900 transition-colors ${
-                      isActive ? 'text-white pl-2 border-l-2 border-l-indigo-500' : 'text-zinc-455'
+                      isActive ? 'text-white pl-2 border-l-2 border-l-indigo-500' : 'text-zinc-400 hover:text-white'
                     }`}
                   >
                     {link.name}
@@ -171,18 +176,18 @@ export default function Header({ activeSection }: HeaderProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-3 text-zinc-400 hover:text-white transition-colors bg-zinc-900/40 rounded-full flex-1 flex justify-center border border-zinc-800/50"
-                  aria-label="GitHub"
+                  aria-label="Gunasekaran's GitHub Profile (opens in new tab)"
                 >
-                  <Github className="w-6 h-6" />
+                  <Github className="w-6 h-6" aria-hidden="true" />
                 </a>
                 <a
                   href="https://linkedin.com/in/gunasekaran-selvarasu"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-3 text-zinc-400 hover:text-white transition-colors bg-zinc-900/40 rounded-full flex-1 flex justify-center border border-zinc-800/50"
-                  aria-label="LinkedIn"
+                  aria-label="Gunasekaran's LinkedIn Profile (opens in new tab)"
                 >
-                  <Linkedin className="w-6 h-6" />
+                  <Linkedin className="w-6 h-6" aria-hidden="true" />
                 </a>
               </div>
               <a
@@ -191,10 +196,11 @@ export default function Header({ activeSection }: HeaderProps) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full text-center py-3.5 mt-2 rounded-xl text-base font-semibold bg-gradient-to-r from-indigo-500 to-cyan-500 text-white shadow-lg shadow-indigo-500/10"
+                aria-label="Download Gunasekaran's Resume (PDF)"
               >
                 Download Resume
               </a>
-            </div>
+            </nav>
           </motion.div>
         )}
       </AnimatePresence>
