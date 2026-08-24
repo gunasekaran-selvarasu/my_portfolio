@@ -1,9 +1,9 @@
 import { useState, useEffect, lazy, Suspense } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import Skills from './components/Skills';
 import Footer from './components/Footer';
 import {
+  SkillsSkeleton,
   ExperienceSkeleton,
   ProjectsSkeleton,
   EducationSkeleton,
@@ -12,7 +12,8 @@ import {
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 
-// Code Splitting / Lazy Loading for below-the-fold sections
+// Code Splitting / Lazy Loading for below-the-fold sections to achieve TBT <= 150ms
+const Skills = lazy(() => import('./components/Skills'));
 const Experience = lazy(() => import('./components/Experience'));
 const Projects = lazy(() => import('./components/Projects'));
 const Education = lazy(() => import('./components/Education'));
@@ -70,11 +71,14 @@ export default function App() {
 
       {/* Main Content Sections */}
       <main className="flex-1">
-        {/* Above-the-fold & critical sections */}
+        {/* Above-the-fold Hero Section (Immediate render for LCP <= 1.2s) */}
         <Hero />
-        <Skills />
 
-        {/* Below-the-fold lazy-loaded sections with layout-stable skeletons */}
+        {/* Below-the-fold lazy-loaded sections with layout-stable skeletons for TBT <= 150ms */}
+        <Suspense fallback={<SkillsSkeleton />}>
+          <Skills />
+        </Suspense>
+
         <Suspense fallback={<ExperienceSkeleton />}>
           <Experience />
         </Suspense>

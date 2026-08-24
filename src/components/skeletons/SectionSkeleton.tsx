@@ -1,3 +1,22 @@
+export function SkillsSkeleton() {
+  return (
+    <section id="skills" className="relative py-24 bg-zinc-950 overflow-hidden min-h-[650px]" aria-label="Loading Skills">
+      <div className="max-w-7xl mx-auto px-6 relative z-10 animate-pulse">
+        <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <div className="h-10 w-96 max-w-full bg-zinc-800/60 rounded-xl mx-auto" />
+          <div className="h-4 w-80 max-w-full bg-zinc-800/40 rounded mx-auto" />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="md:col-span-2 glass-card p-8 rounded-3xl border border-zinc-800/40 h-80 bg-zinc-900/30" />
+          <div className="md:row-span-2 glass-card p-8 rounded-3xl border border-zinc-800/40 h-[500px] bg-zinc-900/30" />
+          <div className="glass-card p-8 rounded-3xl border border-zinc-800/40 h-64 bg-zinc-900/30" />
+          <div className="glass-card p-8 rounded-3xl border border-zinc-800/40 h-64 bg-zinc-900/30" />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function ExperienceSkeleton() {
   return (
     <section id="experience" className="relative py-24 bg-zinc-950/60 overflow-hidden min-h-[600px]" aria-label="Loading Experience">

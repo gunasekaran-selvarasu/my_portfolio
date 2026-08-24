@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight, Award, Zap, Code, ShieldCheck } from 'lucide-react';
 import profileWebp from '../assets/profile/gunasekaran_selvarasu.webp';
 import profileAvif from '../assets/profile/gunasekaran_selvarasu.avif';
-import profileFallback from '../assets/profile/gunasekaran_selvarasu.jpeg';
 
 export default function Hero() {
   const containerVariants = {
@@ -10,18 +9,18 @@ export default function Hero() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.2,
+        staggerChildren: 0.1,
+        delayChildren: 0.05,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
+    hidden: { y: 25, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      transition: { type: 'spring' as const, stiffness: 100, damping: 20 },
+      transition: { type: 'spring' as const, stiffness: 120, damping: 18 },
     },
   };
 
@@ -71,7 +70,7 @@ export default function Hero() {
           animate="visible"
           className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center"
         >
-          {/* Left Column: Text & CTA Content */}
+          {/* Left Column: Text & CTA Content with Stagger Animations */}
           <div className="col-span-1 lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left">
             {/* AWS Certification Tagline */}
             <motion.div
@@ -102,7 +101,7 @@ export default function Hero() {
               5+ years of delivering enterprise-grade SaaS and e-commerce platforms.
             </motion.p>
 
-            {/* CTAs */}
+            {/* CTAs with Spring Interactions */}
             <motion.div
               variants={itemVariants}
               className="flex flex-col sm:flex-row gap-4 mb-4 w-full sm:w-auto"
@@ -125,11 +124,11 @@ export default function Hero() {
             </motion.div>
           </div>
 
-          {/* Right Column: Profile Photo Card */}
+          {/* Right Column: Profile Photo Card with Fluid Entrance & Glow Animation */}
           <div className="col-span-1 lg:col-span-5 flex justify-center lg:justify-end">
             <motion.div
               variants={itemVariants}
-              className="relative group"
+              className="relative group cursor-pointer"
             >
               {/* Ambient glow backdrop */}
               <div className="absolute -inset-4 rounded-full bg-gradient-to-tr from-indigo-500 via-purple-500 to-cyan-500 opacity-20 blur-2xl group-hover:opacity-45 group-hover:blur-3xl transition-all duration-500 scale-95" aria-hidden="true" />
@@ -138,10 +137,12 @@ export default function Hero() {
               <div className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-[320px] lg:h-[320px] xl:w-[360px] xl:h-[360px] rounded-full p-[3px] bg-gradient-to-tr from-zinc-800/60 via-zinc-700/60 to-zinc-800/60 group-hover:from-indigo-500 group-hover:via-purple-500 group-hover:to-cyan-500 transition-all duration-500 shadow-2xl shadow-black/80 overflow-hidden">
                 <div className="w-full h-full rounded-full overflow-hidden bg-zinc-900/90">
                   <picture>
+                    <source srcSet="/profile/gunasekaran_selvarasu.avif" type="image/avif" />
+                    <source srcSet="/profile/gunasekaran_selvarasu.webp" type="image/webp" />
                     <source srcSet={profileAvif} type="image/avif" />
                     <source srcSet={profileWebp} type="image/webp" />
                     <img
-                      src={profileFallback}
+                      src="/profile/gunasekaran_selvarasu.webp"
                       alt="Gunasekaran Selvarasu - Senior Frontend Engineer"
                       width={360}
                       height={360}
