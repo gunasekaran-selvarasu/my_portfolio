@@ -1,16 +1,25 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, MapPin, Linkedin, Github, Send, Copy, Check, MessageCircle, ExternalLink } from 'lucide-react';
-import ReCAPTCHA from 'react-google-recaptcha';
-import emailjs from '@emailjs/browser';
+import { Mail, MapPin, Linkedin, Github, Send, Copy, Check, MessageCircle, ExternalLink, ShieldCheck } from 'lucide-react';
+import type ReCAPTCHAType from 'react-google-recaptcha';
+
+// Lazy load ReCAPTCHA component only on interaction
+const LazyReCAPTCHA = lazy(() => import('react-google-recaptcha'));
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
   const [formState, setFormState] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const [showRecaptcha, setShowRecaptcha] = useState(false);
 
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const recaptchaRef = useRef<ReCAPTCHAType>(null);
+
+  const activateFormInteraction = () => {
+    if (!showRecaptcha) {
+      setShowRecaptcha(true);
+    }
+  };
 
   const copyEmail = () => {
     navigator.clipboard.writeText('sguna0100@gmail.com');
@@ -19,6 +28,7 @@ export default function Contact() {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    activateFormInteraction();
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -50,9 +60,12 @@ export default function Contact() {
     };
 
     try {
+      // Dynamic import to avoid loading EmailJS script upfront
+      const emailjs = await import('@emailjs/browser');
+
       await Promise.all([
-        emailjs.send(serviceId, templateAdminId, templateParams, publicKey),
-        emailjs.send(serviceId, templateCustomerId, templateParams, publicKey)
+        emailjs.default.send(serviceId, templateAdminId, templateParams, publicKey),
+        emailjs.default.send(serviceId, templateCustomerId, templateParams, publicKey)
       ]);
 
       setFormState('success');
@@ -203,7 +216,12 @@ export default function Contact() {
                 Send a Message
               </h3>
 
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form 
+                onSubmit={handleSubmit} 
+                className="space-y-5"
+                onFocusCapture={activateFormInteraction}
+                onClick={activateFormInteraction}
+              >
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <label htmlFor="name" className="text-xs font-bold text-zinc-300 uppercase tracking-wide">
@@ -217,6 +235,7 @@ export default function Contact() {
                       autoComplete="name"
                       aria-required="true"
                       value={formData.name}
+                      onFocus={activateFormInteraction}
                       onChange={handleInputChange}
                       placeholder="John Doe"
                       className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-indigo-500/80 focus:ring-1 focus:ring-indigo-500/50 rounded-xl px-4 py-3.5 text-sm text-white placeholder-zinc-500 focus:outline-none transition-all duration-300"
@@ -235,6 +254,7 @@ export default function Contact() {
                       autoComplete="email"
                       aria-required="true"
                       value={formData.email}
+                      onFocus={activateFormInteraction}
                       onChange={handleInputChange}
                       placeholder="john@example.com"
                       className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-indigo-500/80 focus:ring-1 focus:ring-indigo-500/50 rounded-xl px-4 py-3.5 text-sm text-white placeholder-zinc-500 focus:outline-none transition-all duration-300"
@@ -253,20 +273,50 @@ export default function Contact() {
                     aria-required="true"
                     rows={5}
                     value={formData.message}
+                    onFocus={activateFormInteraction}
                     onChange={handleInputChange}
                     placeholder="Describe your project, timeline, and requirements..."
                     className="w-full bg-zinc-900/50 border border-zinc-800 focus:border-indigo-500/80 focus:ring-1 focus:ring-indigo-500/50 rounded-xl px-4 py-3.5 text-sm text-white placeholder-zinc-500 focus:outline-none transition-all duration-300 resize-none"
                   />
                 </div>
 
-                {/* Google reCAPTCHA Checkbox */}
-                <div className="flex justify-center sm:justify-start pt-2">
-                  <ReCAPTCHA
-                    ref={recaptchaRef}
-                    sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY || 'dummy_site_key'}
-                    onChange={(token) => setRecaptchaToken(token)}
-                    theme="dark"
-                  />
+                {/* Google reCAPTCHA: On-Demand Lazy Interaction */}
+                <div className="flex justify-center sm:justify-start pt-2 min-h-[78px]">
+                  {showRecaptcha ? (
+                    <Suspense
+                      fallback={
+                        <div className="h-[78px] w-[304px] bg-zinc-900/60 border border-zinc-800/80 rounded-xl flex items-center justify-center text-xs text-zinc-400 animate-pulse">
+                          Loading verification...
+                        </div>
+                      }
+                    >
+                      <LazyReCAPTCHA
+                        ref={recaptchaRef}
+                        sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY || 'dummy_site_key'}
+                        onChange={(token) => setRecaptchaToken(token)}
+                        theme="dark"
+                      />
+                    </Suspense>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={activateFormInteraction}
+                      className="h-[78px] w-full max-w-[304px] bg-zinc-900/60 hover:bg-zinc-900/90 border border-zinc-800 hover:border-indigo-500/40 rounded-xl px-4 py-3 flex items-center gap-3 transition-all duration-300 text-left group cursor-pointer"
+                      aria-label="Click to activate reCAPTCHA security verification"
+                    >
+                      <div className="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg group-hover:bg-indigo-500/20 transition-colors">
+                        <ShieldCheck className="w-5 h-5" aria-hidden="true" />
+                      </div>
+                      <div>
+                        <span className="text-xs font-semibold text-zinc-200 block group-hover:text-white transition-colors">
+                          Security Verification
+                        </span>
+                        <span className="text-[11px] text-zinc-400 block">
+                          Click to load reCAPTCHA
+                        </span>
+                      </div>
+                    </button>
+                  )}
                 </div>
 
                 <button
