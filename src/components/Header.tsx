@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { m as motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Github, Linkedin, FileText } from 'lucide-react';
-import resumeUrl from '../assets/docs/GUNASEKARAN_SELVARASU_Resume_Updated.pdf';
+import resumeUrl from '../assets/docs/Gunasekaran_Selvarasu_Resume_SeniorFrontend.pdf';
 
 interface HeaderProps {
   activeSection: string;
@@ -48,19 +48,18 @@ export default function Header({ activeSection }: HeaderProps) {
 
   return (
     <motion.header
-      className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${
-        scrolled 
-          ? 'py-4 bg-zinc-950/70 backdrop-blur-md border-zinc-800/40 shadow-lg shadow-zinc-950/20' 
+      className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${scrolled
+          ? 'py-4 bg-zinc-950/70 backdrop-blur-md border-zinc-800/40 shadow-lg shadow-zinc-950/20'
           : 'py-6 bg-transparent border-transparent'
-      }`}
+        }`}
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
-        <a 
-          href="#about" 
+        <a
+          href="#about"
           onClick={(e) => handleLinkClick(e, '#about')}
           className="text-2xl font-bold tracking-tight text-white flex items-center gap-1 group"
           aria-label="Gunasekaran Selvarasu Portfolio Homepage"
@@ -80,9 +79,8 @@ export default function Header({ activeSection }: HeaderProps) {
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleLinkClick(e, link.href)}
-                className={`relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 ${
-                  isActive ? 'text-white' : 'text-zinc-400 hover:text-zinc-100'
-                }`}
+                className={`relative px-4 py-2 text-sm font-medium rounded-full transition-colors duration-200 ${isActive ? 'text-white' : 'text-zinc-400 hover:text-zinc-100'
+                  }`}
               >
                 {isActive && (
                   <motion.span
@@ -117,10 +115,10 @@ export default function Header({ activeSection }: HeaderProps) {
           >
             <Linkedin className="w-5 h-5" aria-hidden="true" />
           </a>
-          
+
           <a
             href={resumeUrl}
-            download="GUNASEKARAN_SELVARASU_Resume_Updated.pdf"
+            download="Gunasekaran_Selvarasu_Resume_SeniorFrontend.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 text-white shadow-md shadow-indigo-500/10 hover:shadow-indigo-500/20 active:scale-95 transition-all"
@@ -162,9 +160,8 @@ export default function Header({ activeSection }: HeaderProps) {
                     key={link.name}
                     href={link.href}
                     onClick={(e) => handleLinkClick(e, link.href)}
-                    className={`py-2 text-lg font-medium border-b border-zinc-900 transition-colors ${
-                      isActive ? 'text-white pl-2 border-l-2 border-l-indigo-500' : 'text-zinc-400 hover:text-white'
-                    }`}
+                    className={`py-2 text-lg font-medium border-b border-zinc-900 transition-colors ${isActive ? 'text-white pl-2 border-l-2 border-l-indigo-500' : 'text-zinc-400 hover:text-white'
+                      }`}
                   >
                     {link.name}
                   </a>
@@ -192,7 +189,7 @@ export default function Header({ activeSection }: HeaderProps) {
               </div>
               <a
                 href={resumeUrl}
-                download="GUNASEKARAN_SELVARASU_Resume_Updated.pdf"
+                download="Gunasekaran_Selvarasu_Resume_SeniorFrontend.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full text-center py-3.5 mt-2 rounded-xl text-base font-semibold bg-gradient-to-r from-indigo-500 to-cyan-500 text-white shadow-lg shadow-indigo-500/10"
