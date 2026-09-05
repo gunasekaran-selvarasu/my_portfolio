@@ -183,6 +183,24 @@ export default function Projects() {
       tags: ['WordPress', 'PHP', 'CMS', 'NGO Portal', 'SEO'],
       github: 'https://github.com/gunasekaran-selvarasu/',
       demo: 'https://raincentre.net/'
+    },
+    {
+      title: 'Zova Canteen',
+      category: 'E-Commerce',
+      description: 'Premium e‑commerce platform for a canteen, built with Node.js, Express, MySQL and a modern front‑end stack.',
+      architecture: 'Full‑stack Node/Express backend with MySQL database, static HTML/CSS/JS front‑end served via Express.',
+      tags: ['HTML', 'CSS', 'JavaScript', 'Node.js', 'Express', 'MySQL'],
+      github: '#',
+      demo: 'https://zovacanteen.in'
+    },
+    {
+      title: 'Commercial Billing / POS / Inventory Platform',
+      category: 'Dashboards',
+      description: 'Comprehensive billing, POS and inventory management system with React front‑end and FastAPI backend.',
+      architecture: 'React TypeScript SPA communicating with a Python FastAPI service, data stored in MongoDB.',
+      tags: ['React', 'TypeScript', 'FastAPI', 'MongoDB'],
+      github: 'https://github.com/gunasekaran-selvarasu/guna_pos',
+      demo: 'https://guna-pos.vercel.app/'
     }
   ];
 
@@ -210,7 +228,7 @@ export default function Projects() {
 
         {/* Filter Navigation */}
         <div className="flex justify-center items-center mb-12">
-          <div 
+          <div
             className="flex flex-wrap gap-2 p-1.5 bg-zinc-900/60 border border-zinc-800/80 rounded-2xl backdrop-blur-sm"
             role="toolbar"
             aria-label="Project categories filter"
@@ -221,11 +239,10 @@ export default function Projects() {
                 type="button"
                 onClick={() => setActiveFilter(filter)}
                 aria-pressed={activeFilter === filter}
-                className={`relative px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer ${
-                  activeFilter === filter
+                className={`relative px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 cursor-pointer ${activeFilter === filter
                     ? 'text-white'
                     : 'text-zinc-400 hover:text-zinc-200'
-                }`}
+                  }`}
               >
                 {activeFilter === filter && (
                   <motion.span
