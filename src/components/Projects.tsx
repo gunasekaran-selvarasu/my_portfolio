@@ -21,7 +21,7 @@ const getProjectIcon = (category: string) => {
           </g>
         </svg>
       );
-    case 'Next.js / SaaS':
+    case 'Fullstack / SaaS':
       return (
         <svg viewBox="0 0 24 24" className="w-4.5 h-4.5 fill-indigo-400" aria-hidden="true" focusable="false">
           <path d="M18.665 21.417L8.98 9.006v12.411H6.18V2.583h2.802l9.683 12.41V2.583h2.8v18.834h-2.802zM12 0a12 12 0 1012 12A12.014 12.014 0 0012 0z" />
@@ -44,7 +44,7 @@ const getProjectIcon = (category: string) => {
 
 interface Project {
   title: string;
-  category: 'Next.js / SaaS' | 'E-Commerce' | 'Dashboards' | 'Laravel' | 'React' | 'Wordpress';
+  category: 'Fullstack / SaaS' | 'E-Commerce' | 'Dashboards' | 'React' | 'Wordpress';
   description: string;
   architecture: string;
   tags: string[];
@@ -55,15 +55,15 @@ interface Project {
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState<string>('All');
 
-  const filters = ['All', 'Next.js / SaaS', 'E-Commerce', 'Dashboards', 'Laravel', 'React', 'Wordpress'];
+  const filters = ['All', 'Fullstack / SaaS', 'E-Commerce', 'Dashboards', 'React', 'Wordpress'];
 
   const projects: Project[] = [
     {
       title: 'Asian School of Business (ASB)',
-      category: 'Next.js / SaaS',
+      category: 'Fullstack / SaaS',
       description: 'Enterprise educational platform supporting academic portals, dynamic course scheduling, and real-time student dashboards.',
-      architecture: 'Robust Next.js app router structure synced with server-side rendered course catalogues, stateful client components, and security filters.',
-      tags: ['Next.js', 'TypeScript', 'Redux Toolkit', 'REST APIs', 'Tailwind CSS'],
+      architecture: 'Robust Next.js App Router with Server-Side Rendering (SSR), typed Node.js/Express API services, JWT stateless authentication, and Redux Toolkit state sync.',
+      tags: ['Next.js', 'SSR', 'TypeScript', 'Node.js', 'Redux Toolkit', 'JWT', 'Tailwind CSS'],
       github: 'https://github.com/gunasekaran-selvarasu/',
       demo: '#'
     },
@@ -71,67 +71,94 @@ export default function Projects() {
       title: 'Meii AI Platform',
       category: 'Dashboards',
       description: 'Sophisticated AI analytics dashboard displaying predictive charts, model metrics, and automated conversational prompts.',
-      architecture: 'Developed with lightweight React components and custom Ant Design systems, boosting UI velocity by 40% using modular structures.',
-      tags: ['React.js', 'TypeScript', 'Ant Design', 'AWS S3', 'Chart.js'],
+      architecture: 'Engineered with React.js and comprehensive Ant Design (AntD) design systems, backed by Node.js REST services and AWS S3 model artifact storage.',
+      tags: ['React.js', 'TypeScript', 'Ant Design', 'Node.js', 'AWS S3', 'REST APIs'],
       github: 'https://github.com/gunasekaran-selvarasu/',
       demo: 'https://meii.ai'
+    },
+    {
+      title: 'Commercial Billing / POS / Inventory Platform',
+      category: 'Dashboards',
+      description: 'Comprehensive billing, POS, and inventory management platform handling real-time stock deductions, invoice generation, and financial analytics.',
+      architecture: 'React TypeScript frontend styled with Material UI (MUI), communicating with a high-performance backend with MongoDB aggregation pipelines and indexing.',
+      tags: ['React.js', 'TypeScript', 'Material UI', 'MongoDB', 'Node.js', 'REST APIs'],
+      github: 'https://github.com/gunasekaran-selvarasu/guna_pos',
+      demo: 'https://guna-pos.vercel.app/'
     },
     {
       title: 'RadPrix E-Commerce',
       category: 'E-Commerce',
       description: 'A premium, high-availability fashion storefront featuring automated inventory synchronization, smart search, and optimized checkout flow.',
-      architecture: 'Powered by Next.js Server Components, Tailwind CSS styling, and auto-scaling EC2 instances. Configured CloudFront CDN for global caching.',
-      tags: ['Next.js', 'React.js', 'Tailwind CSS', 'AWS EC2', 'RazorPay', 'PayPal'],
+      architecture: 'Powered by Next.js Server Components, relational MySQL order schema, Tailwind CSS styling, auto-scaling EC2 instances, and dual RazorPay/PayPal gateways.',
+      tags: ['Next.js', 'SSR', 'MySQL', 'Node.js', 'Tailwind CSS', 'RazorPay', 'PayPal', 'AWS EC2'],
       github: 'https://github.com/gunasekaran-selvarasu/',
       demo: 'https://radprix.com'
     },
     {
-      title: 'Velaan Mandi B2B',
+      title: 'Velaan Mandi B2B Marketplace',
       category: 'E-Commerce',
-      description: 'Agricultural digital marketplace connecting local farming communities directly with wholesale vendors, providing real-time pricing indicators and regional demand metrics.',
-      architecture: 'Engineered using server-side rendering for optimal dynamic catalog loading. Backed by scalable relational databases and highly secure transaction processors.',
-      tags: ['Next.js', 'React.js', 'Tailwind CSS', 'RazorPay', 'Serverless APIs'],
-      github: 'https://github.com/gunasekaran-selvarasu/',
-      demo: '#'
-    },
-    {
-      title: 'Sofa33 Customizer',
-      category: 'E-Commerce',
-      description: 'Interactive high-end home furnishing store featuring virtual customization logic, smart freight estimates, and responsive 3D model product previews.',
-      architecture: 'Assembled utilizing responsive React states and optimized graphic content pipelines to deliver high-quality visual representation with low latency.',
-      tags: ['Next.js', 'React.js', 'Tailwind CSS', 'AWS S3', 'Redis', 'PayPal'],
+      description: 'Agricultural digital marketplace connecting local farming communities directly with wholesale vendors, providing real-time pricing indicators and demand metrics.',
+      architecture: 'Engineered using Next.js Server-Side Rendering (SSR) for dynamic catalog loading, backed by scalable relational MySQL datastores and secure RazorPay payment verification.',
+      tags: ['Next.js', 'SSR', 'React.js', 'MySQL', 'Node.js', 'RazorPay', 'Tailwind CSS'],
       github: 'https://github.com/gunasekaran-selvarasu/',
       demo: '#'
     },
     {
       title: 'GS Audit Report System',
       category: 'Dashboards',
-      description: 'Real-time auditing dashboard capturing system logs, generating comprehensive PDF files, and securing admin tasks.',
-      architecture: 'Uses AWS Amplify for authentication processes, S3 for secure report storage, and OTP auth tokens. Rich charting utilizing Material UI.',
-      tags: ['React.js', 'Material UI', 'Chart.js', 'AWS Amplify', 'AWS S3', 'OTP Auth'],
+      description: 'Real-time auditing dashboard capturing system logs, generating comprehensive PDF files, and securing admin operations with multi-factor tokens.',
+      architecture: 'Fullstack application utilizing Material UI (MUI) components, Node.js backend endpoints, OTP/MFA authentication, and AWS S3 secure report storage.',
+      tags: ['React.js', 'Material UI', 'Node.js', 'AWS Amplify', 'AWS S3', 'OTP Auth', 'JWT'],
+      github: 'https://github.com/gunasekaran-selvarasu/',
+      demo: '#'
+    },
+    {
+      title: 'Sofa33 Customizer',
+      category: 'E-Commerce',
+      description: 'Interactive high-end home furnishing store featuring virtual 3D customization logic, smart freight estimates, and responsive product previews.',
+      architecture: 'Assembled utilizing responsive React states, Node.js API handlers, Redis caching layers, and PayPal international checkouts with automated webhooks.',
+      tags: ['Next.js', 'React.js', 'Tailwind CSS', 'Node.js', 'Redis', 'AWS S3', 'PayPal'],
       github: 'https://github.com/gunasekaran-selvarasu/',
       demo: '#'
     },
     {
       title: 'Dgiverse Web Application',
-      category: 'Next.js / SaaS',
-      description: 'Fast-loading marketing and business portal engineered for high-speed search engine indexing and responsive scaling.',
-      architecture: 'Next.js SSR architecture with static path generation, search optimized indexing headers, and custom Material UI layout setups.',
-      tags: ['Next.js', 'Material UI', 'SSR Architecture', 'SEO Optimization', 'TypeScript'],
+      category: 'Fullstack / SaaS',
+      description: 'Fast-loading marketing and business portal engineered for high-speed search engine indexing, SSR performance, and responsive scaling.',
+      architecture: 'Next.js SSR architecture with static path generation, search optimized indexing headers, and custom Material UI (MUI) design layouts.',
+      tags: ['Next.js', 'SSR', 'Material UI', 'TypeScript', 'Node.js', 'SEO Optimization'],
       github: 'https://github.com/gunasekaran-selvarasu/',
       demo: 'https://dgiverse.com'
     },
     {
       title: 'Tradewave International',
-      category: 'Laravel',
+      category: 'Fullstack / SaaS',
       description: 'Global trading and import-export catalog portal supporting inquiry channels, products directory, and logistics checklists.',
-      architecture: 'Built with Laravel MVC framework, PHP controllers, and relational MySQL schemas. Optimized for speed and local hosting.',
-      tags: ['Laravel', 'PHP', 'MySQL', 'TailwindCSS', 'CPanel'],
+      architecture: 'Built with fullstack MVC architecture, PHP/Laravel controllers, and relational MySQL schemas with localized indexing.',
+      tags: ['Laravel', 'PHP', 'MySQL', 'Tailwind CSS', 'REST APIs'],
       github: 'https://github.com/gunasekaran-selvarasu/',
       demo: 'https://tradewaveintl.com'
     },
     {
-      title: 'Touchmark Descience',
+      title: 'Zova Canteen',
+      category: 'E-Commerce',
+      description: 'Production food ordering platform for a corporate canteen with dynamic ordering, cart management, and inventory tracking.',
+      architecture: 'Fullstack architecture featuring a Node.js and Express backend, relational MySQL database, and responsive frontend UI.',
+      tags: ['Node.js', 'Express.js', 'MySQL', 'JavaScript', 'HTML5', 'CSS3'],
+      github: '#',
+      demo: 'https://zovacanteen.in'
+    },
+    {
+      title: 'HireMe Recruitment Platform',
+      category: 'React',
+      description: 'Custom recruitment and talent placement portal facilitating resumes indexing, vacancy updates, and candidate assessment pipelines.',
+      architecture: 'React.js SPA with Material UI and Tailwind CSS, integrating JWT authentication, candidate evaluation workflows, and paginated API queries.',
+      tags: ['React.js', 'Material UI', 'TypeScript', 'Tailwind CSS', 'JWT', 'REST APIs'],
+      github: 'https://github.com/gunasekaran-selvarasu/',
+      demo: '#'
+    },
+    {
+      title: 'Touchmark Descience Agency',
       category: 'React',
       description: 'Interactive corporate portfolio website for a creative design agency, focusing on premium branding, smooth scroll dynamics, and responsive grid layouts.',
       architecture: 'Built with React.js, Custom CSS Animations, and Framer Motion. Engineered for low-latency graphics loading and high accessibility scores.',
@@ -140,38 +167,20 @@ export default function Projects() {
       demo: 'https://touchmarkdes.com'
     },
     {
-      title: 'HireMe Platform',
-      category: 'React',
-      description: 'Custom recruitment and talent placement portal facilitating resumes indexing, vacancy updates, and candidate assessment pipelines.',
-      architecture: 'React.js architecture styled with Tailwind CSS. Integrates responsive forms, client-side pagination, and clean modular structures.',
-      tags: ['React.js', 'Tailwind CSS', 'TypeScript', 'Modular UI'],
-      github: 'https://github.com/gunasekaran-selvarasu/',
-      demo: '#'
-    },
-    {
-      title: 'Origin Corporate Portal',
-      category: 'React',
-      description: 'Marketing and business consultation portal presenting service catalogs, contact forms, and client success metrics.',
-      architecture: 'React client-side interface coupled with optimized asset bundles and clean typography to drive higher engagement rates.',
-      tags: ['React.js', 'Tailwind CSS', 'Asset Optimization'],
-      github: 'https://github.com/gunasekaran-selvarasu/',
-      demo: '#'
-    },
-    {
       title: 'SriMurugan Hardwares',
       category: 'Wordpress',
       description: 'Comprehensive product catalog and corporate site for a large retail hardware and machinery merchant.',
-      architecture: 'Custom WordPress configuration with optimized Elementor layouts, database query optimization, and localized search options.',
-      tags: ['WordPress', 'PHP', 'MySQL', 'Elementor', 'SEO Caching'],
+      architecture: 'Custom WordPress configuration with relational MySQL schema tuning, customized child theme, and search indexing.',
+      tags: ['WordPress', 'PHP', 'MySQL', 'SEO Caching'],
       github: 'https://github.com/gunasekaran-selvarasu/',
       demo: 'https://srimuruganhardwares.com/'
     },
     {
       title: 'Rupinis',
       category: 'Wordpress',
-      description: 'Elegant corporate website for a premium beauty salon chain, detailing services catalogs, location mapping, and booking links.',
+      description: 'Corporate website for a premium beauty salon chain, detailing services catalogs, location mapping, and booking links.',
       architecture: 'WordPress child-theme customization, responsive typography, media loading optimizations, and localized SEO plugins.',
-      tags: ['WordPress', 'PHP', 'Elementor', 'Responsive Grid'],
+      tags: ['WordPress', 'PHP', 'MySQL', 'Responsive Grid'],
       github: 'https://github.com/gunasekaran-selvarasu/',
       demo: 'https://rupinis.com/'
     },
@@ -180,27 +189,9 @@ export default function Projects() {
       category: 'Wordpress',
       description: 'Information and resources hub for an environmental NGO specializing in rain-water harvesting initiatives and public education programs.',
       architecture: 'WordPress CMS structure, accessibility-focused grids, and optimized asset hosting to deliver low-bandwidth resources.',
-      tags: ['WordPress', 'PHP', 'CMS', 'NGO Portal', 'SEO'],
+      tags: ['WordPress', 'PHP', 'MySQL', 'NGO Portal', 'SEO'],
       github: 'https://github.com/gunasekaran-selvarasu/',
       demo: 'https://raincentre.net/'
-    },
-    {
-      title: 'Zova Canteen',
-      category: 'E-Commerce',
-      description: 'Premium e‑commerce platform for a canteen, built with Node.js, Express, MySQL and a modern front‑end stack.',
-      architecture: 'Full‑stack Node/Express backend with MySQL database, static HTML/CSS/JS front‑end served via Express.',
-      tags: ['HTML', 'CSS', 'JavaScript', 'Node.js', 'Express', 'MySQL'],
-      github: '#',
-      demo: 'https://zovacanteen.in'
-    },
-    {
-      title: 'Commercial Billing / POS / Inventory Platform',
-      category: 'Dashboards',
-      description: 'Comprehensive billing, POS and inventory management system with React front‑end and FastAPI backend.',
-      architecture: 'React TypeScript SPA communicating with a Python FastAPI service, data stored in MongoDB.',
-      tags: ['React', 'TypeScript', 'FastAPI', 'MongoDB'],
-      github: 'https://github.com/gunasekaran-selvarasu/guna_pos',
-      demo: 'https://guna-pos.vercel.app/'
     }
   ];
 

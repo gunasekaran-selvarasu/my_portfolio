@@ -41,15 +41,15 @@ export default function Hero() {
   };
 
   const metrics = [
-    { label: 'Experience', value: '5+ Years', icon: Code, color: 'text-indigo-400' },
-    { label: 'Enterprise & SaaS', value: '10+ Projects', icon: Zap, color: 'text-cyan-400' },
-    { label: 'Avg. Optimization Boost', value: '35%+', icon: Award, color: 'text-purple-400' },
+    { label: 'Fullstack Experience', value: '5+ Years', icon: Code, color: 'text-indigo-400' },
+    { label: 'Enterprise & SaaS', value: '15+ Projects', icon: Zap, color: 'text-cyan-400' },
+    { label: 'MERN & Relational SQL', value: 'Production', icon: Award, color: 'text-purple-400' },
     { label: 'AWS Certification', value: 'Cloud Practitioner', icon: ShieldCheck, color: 'text-amber-400' },
   ];
 
   return (
-    <section 
-      id="about" 
+    <section
+      id="about"
       className="relative min-h-[92svh] flex items-center justify-center pt-24 pb-16 overflow-hidden"
       aria-label="About and Introduction"
     >
@@ -58,7 +58,7 @@ export default function Hero() {
         <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-indigo-500/10 glow-blur opacity-60" />
         <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[400px] h-[400px] rounded-full bg-cyan-500/10 glow-blur opacity-60" />
         <div className="absolute top-1/3 right-1/3 w-[300px] h-[300px] rounded-full bg-purple-500/5 glow-blur opacity-40" />
-        
+
         {/* Subtle grid pattern background */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
       </div>
@@ -88,7 +88,7 @@ export default function Hero() {
             >
               Gunasekaran Selvarasu
               <span className="block mt-2 bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-                Senior Frontend Engineer
+                Senior Fullstack Developer
               </span>
             </motion.h1>
 
@@ -97,8 +97,8 @@ export default function Hero() {
               variants={itemVariants}
               className="text-base sm:text-lg md:text-xl text-zinc-300 font-normal leading-relaxed max-w-2xl mb-10"
             >
-              Architecting high-performance, scalable web applications with React.js, Next.js, and Cloud Infrastructure. 
-              5+ years of delivering enterprise-grade SaaS and e-commerce platforms.
+              Architecting end-to-end fullstack platforms with React.js, Next.js (SSR), Node.js, TypeScript, and MongoDB/MySQL databases.
+              5+ years of delivering enterprise-grade SaaS, secure API services, and cloud-native solutions.
             </motion.p>
 
             {/* CTAs with Spring Interactions */}
@@ -132,7 +132,7 @@ export default function Hero() {
             >
               {/* Ambient glow backdrop */}
               <div className="absolute -inset-4 rounded-full bg-gradient-to-tr from-indigo-500 via-purple-500 to-cyan-500 opacity-20 blur-2xl group-hover:opacity-45 group-hover:blur-3xl transition-all duration-500 scale-95" aria-hidden="true" />
-              
+
               {/* Image Frame Card */}
               <div className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-[320px] lg:h-[320px] xl:w-[360px] xl:h-[360px] rounded-full p-[3px] bg-gradient-to-tr from-zinc-800/60 via-zinc-700/60 to-zinc-800/60 group-hover:from-indigo-500 group-hover:via-purple-500 group-hover:to-cyan-500 transition-all duration-500 shadow-2xl shadow-black/80 overflow-hidden">
                 <div className="w-full h-full rounded-full overflow-hidden bg-zinc-900/90">
@@ -143,7 +143,7 @@ export default function Hero() {
                     <source srcSet={profileWebp} type="image/webp" />
                     <img
                       src="/profile/gunasekaran_selvarasu.webp"
-                      alt="Gunasekaran Selvarasu - Senior Frontend Engineer"
+                      alt="Gunasekaran Selvarasu - Senior Fullstack Developer"
                       width={360}
                       height={360}
                       loading="eager"

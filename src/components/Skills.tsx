@@ -1,7 +1,7 @@
 import { m as motion } from 'framer-motion';
 import {
-  Code, Cloud, CreditCard, Shield, Globe,
-  Layers, CheckCircle, ExternalLink, Zap
+  Code, Cloud, Database, Shield,
+  Layers, CheckCircle, ExternalLink, Server, Cpu
 } from 'lucide-react';
 
 export default function Skills() {
@@ -25,18 +25,30 @@ export default function Skills() {
   };
 
   const frontendSkills = [
-    { name: 'React.js', level: 'Expert' },
-    { name: 'Next.js', level: 'Expert' },
-    { name: 'TypeScript', level: 'Expert' },
-    { name: 'JavaScript', level: 'Expert' },
-    { name: 'Tailwind CSS', level: 'Expert' },
-    { name: 'PHP', level: 'Advanced' },
-    { name: 'Laravel', level: 'Advanced' },
-    { name: 'WordPress', level: 'Advanced' },
-    { name: 'Redux Toolkit', level: 'Advanced' },
-    { name: 'HTML5 / CSS3', level: 'Expert' },
-    { name: 'Responsive UI/UX', level: 'Expert' },
-    { name: 'RESTful APIs', level: 'Expert' },
+    { name: 'React.js', level: 'Expert', tag: 'Core UI' },
+    { name: 'Next.js (SSR)', level: 'Expert', tag: 'Server-Side' },
+    { name: 'TypeScript', level: 'Expert', tag: 'Type Safety' },
+    { name: 'JavaScript', level: 'Expert', tag: 'ES6+ Engine' },
+    { name: 'Tailwind CSS', level: 'Expert', tag: 'Styling' },
+    { name: 'Material UI', level: 'Advanced', tag: 'Component UI' },
+    { name: 'Ant Design', level: 'Advanced', tag: 'Design System' },
+    { name: 'Redux Toolkit', level: 'Expert', tag: 'State Mgmt' },
+  ];
+
+  const backendAndDbSkills = [
+    { name: 'Node.js', role: 'Runtime Environment', icon: Server },
+    { name: 'Express.js', role: 'REST Microservices', icon: Cpu },
+    { name: 'MongoDB', role: 'NoSQL & Aggregations', icon: Database },
+    { name: 'MySQL', role: 'Relational Schema & SQL', icon: Database },
+    { name: 'Server-Side Rendering', role: 'Next.js SSR & SEO', icon: Layers },
+    { name: 'RESTful APIs', role: 'Contract & Middleware', icon: Server },
+  ];
+
+  const authAndIntegrations = [
+    { name: 'JWT (JSON Web Tokens)', tag: 'Stateless Auth', desc: 'Secure token signing, refresh rotation & middleware' },
+    { name: 'OAuth 2.0 (SSO)', tag: 'Federated Identity', desc: 'Third-party authorization (Google, GitHub)' },
+    { name: 'OTP & MFA Auth', tag: '2-Factor Security', desc: 'Multi-factor login flows and SMS/Email verification' },
+    { name: 'Payment Pipelines', tag: 'Transactional', desc: 'RazorPay & PayPal webhooks with idempotency' },
   ];
 
   const cloudSkills = [
@@ -45,21 +57,13 @@ export default function Skills() {
     { name: 'Amplify', category: 'Deployment' },
     { name: 'CloudFront', category: 'CDN' },
     { name: 'Route 53', category: 'DNS' },
-    { name: 'WAF', category: 'Security' },
+    { name: 'WAF & Security', category: 'Firewall' },
     { name: 'CI/CD (GitHub Actions)', category: 'DevOps' },
     { name: 'Git & Gitflow', category: 'DevOps' },
   ];
 
-  const integrationSkills = [
-    { name: 'RESTful APIs', icon: Globe },
-    { name: 'RazorPay Integration', icon: CreditCard },
-    { name: 'PayPal Checkout', icon: CreditCard },
-    { name: 'Performance Auditing', icon: Zap },
-    { name: 'OTP & MFA Auth', icon: Shield },
-  ];
-
   return (
-    <section id="skills" className="relative py-24 bg-zinc-950 overflow-hidden" aria-label="Technical Skills and Architecture">
+    <section id="skills" className="relative py-24 bg-zinc-950 overflow-hidden" aria-label="Technical Skills and Fullstack Architecture">
       {/* Top Faded Divider */}
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-800/80 to-transparent" aria-hidden="true" />
       <div className="absolute inset-0 z-0" aria-hidden="true">
@@ -69,10 +73,10 @@ export default function Skills() {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
-            Technical Arsenal & Cloud Competencies
+            Fullstack Technical Arsenal & Cloud Stack
           </h2>
           <p className="text-zinc-300 text-base sm:text-lg">
-            A comprehensive overview of my backend-friendly frontend frameworks, DevOps practices, and cloud-native architecture solutions.
+            End-to-end expertise spanning modern React & Next.js UI systems, robust Node.js backend services, relational/NoSQL datastores, secure JWT/OAuth auth, and AWS cloud infrastructure.
           </p>
         </div>
 
@@ -83,7 +87,7 @@ export default function Skills() {
           viewport={{ once: true, margin: '-100px' }}
           className="grid grid-cols-1 md:grid-cols-3 gap-6"
         >
-          {/* 1. Frontend Skills Card (Span 2) */}
+          {/* 1. Frontend & UI Systems Card (Span 2) */}
           <motion.div
             variants={cardVariants}
             className="md:col-span-2 glass-card p-8 rounded-3xl border border-zinc-800/40 relative overflow-hidden group hover:border-zinc-700/50 transition-all duration-300"
@@ -95,13 +99,13 @@ export default function Skills() {
                 <Code className="w-6 h-6" aria-hidden="true" />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-white">Core Stack & Architecture</h3>
-                <p className="text-xs text-indigo-300 font-medium">Frontend, Backend & CMS</p>
+                <h3 className="text-xl font-bold text-white">Frontend & UI Systems</h3>
+                <p className="text-xs text-indigo-300 font-medium">React, Next.js (SSR), TypeScript, Tailwind & UI Frameworks</p>
               </div>
             </div>
 
             <p className="text-sm text-zinc-300 mb-6 leading-relaxed">
-              Engineering web systems using robust frontend libraries (React/Next.js), structured backend frameworks (Laravel/PHP), modular databases, and custom WordPress child-themes.
+              Crafting reactive, high-performance interfaces with React.js and Next.js SSR. Experienced building design-system scale components with Tailwind CSS, Material UI, and Ant Design with rigorous TypeScript typing.
             </p>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -113,9 +117,14 @@ export default function Skills() {
                   <span className="text-sm font-semibold text-white group-hover/item:text-indigo-300 transition-colors">
                     {skill.name}
                   </span>
-                  <span className="text-[10px] uppercase font-bold text-zinc-400 mt-1">
-                    {skill.level}
-                  </span>
+                  <div className="flex items-center justify-between mt-2">
+                    <span className="text-[10px] uppercase font-bold text-zinc-400">
+                      {skill.level}
+                    </span>
+                    <span className="text-[9px] font-semibold text-indigo-400 bg-indigo-500/10 px-1.5 py-0.5 rounded">
+                      {skill.tag}
+                    </span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -166,19 +175,19 @@ export default function Skills() {
                 <div className="space-y-3.5 mb-8">
                   <div className="flex items-center gap-2.5 text-xs text-zinc-300 font-medium justify-center">
                     <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" aria-hidden="true" />
-                    <span>Cloud Design & Architecture</span>
+                    <span>Cloud Native Backend & Hosting</span>
                   </div>
                   <div className="flex items-center gap-2.5 text-xs text-zinc-300 font-medium justify-center">
                     <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" aria-hidden="true" />
-                    <span>AWS Global Infrastructure</span>
+                    <span>AWS Global Infrastructure & CDN</span>
                   </div>
                   <div className="flex items-center gap-2.5 text-xs text-zinc-300 font-medium justify-center">
                     <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" aria-hidden="true" />
-                    <span>Security & Compliance Audits</span>
+                    <span>Security, Auth & Compliance Audits</span>
                   </div>
                   <div className="flex items-center gap-2.5 text-xs text-zinc-300 font-medium justify-center">
                     <CheckCircle className="w-4 h-4 text-emerald-400 shrink-0" aria-hidden="true" />
-                    <span>Billing, Pricing, & Optimization</span>
+                    <span>Database Scaling & Cost Optimization</span>
                   </div>
                 </div>
               </div>
@@ -198,7 +207,7 @@ export default function Skills() {
             </div>
           </motion.div>
 
-          {/* 3. Integrations & Architecture Card (Span 1) */}
+          {/* 3. Backend, APIs & Databases Card (Span 1) */}
           <motion.div
             variants={cardVariants}
             className="glass-card p-8 rounded-3xl border border-zinc-800/40 relative overflow-hidden group hover:border-zinc-700/50 transition-all duration-300"
@@ -207,25 +216,25 @@ export default function Skills() {
 
             <div className="flex items-center gap-3 mb-6">
               <div className="p-2.5 bg-cyan-500/10 text-cyan-400 rounded-xl">
-                <Layers className="w-6 h-6" aria-hidden="true" />
+                <Server className="w-6 h-6" aria-hidden="true" />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-white">Architecture</h3>
-                <p className="text-xs text-cyan-300 font-medium">Integrations & Workflows</p>
+                <h3 className="text-xl font-bold text-white">Backend & Databases</h3>
+                <p className="text-xs text-cyan-300 font-medium">Node.js, Express, MongoDB, MySQL & SSR</p>
               </div>
             </div>
 
-            <div className="space-y-4">
-              {integrationSkills.map((skill, index) => {
+            <div className="space-y-3.5">
+              {backendAndDbSkills.map((skill, index) => {
                 const IconComponent = skill.icon;
                 return (
                   <div key={index} className="flex items-center justify-between py-2 border-b border-zinc-900/60 last:border-0">
                     <div className="flex items-center gap-3">
                       <IconComponent className="w-4 h-4 text-zinc-400 group-hover:text-cyan-400 transition-colors shrink-0" aria-hidden="true" />
-                      <span className="text-sm font-medium text-zinc-300">{skill.name}</span>
+                      <span className="text-sm font-medium text-zinc-200">{skill.name}</span>
                     </div>
-                    <span className="text-[10px] font-bold text-zinc-400 bg-zinc-900/50 px-2.5 py-0.5 rounded-full border border-zinc-800">
-                      Active
+                    <span className="text-[10px] font-semibold text-cyan-300 bg-cyan-500/10 px-2.5 py-0.5 rounded-full border border-cyan-500/20">
+                      {skill.role}
                     </span>
                   </div>
                 );
@@ -233,10 +242,42 @@ export default function Skills() {
             </div>
           </motion.div>
 
-          {/* 4. Cloud & DevOps Card (Span 2) */}
+          {/* 4. Authentication, Security & Payments Card (Span 1) */}
           <motion.div
             variants={cardVariants}
-            className="md:col-span-1 glass-card p-8 rounded-3xl border border-zinc-800/40 relative overflow-hidden group hover:border-zinc-700/50 transition-all duration-300"
+            className="glass-card p-8 rounded-3xl border border-zinc-800/40 relative overflow-hidden group hover:border-zinc-700/50 transition-all duration-300"
+          >
+            <div className="absolute -left-10 -bottom-10 w-44 h-44 bg-purple-500/10 rounded-full glow-blur" aria-hidden="true" />
+
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2.5 bg-purple-500/10 text-purple-400 rounded-xl">
+                <Shield className="w-6 h-6" aria-hidden="true" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-white">Auth & Security</h3>
+                <p className="text-xs text-purple-300 font-medium">JWT, OAuth 2.0, OTP & Gateways</p>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              {authAndIntegrations.map((item, index) => (
+                <div key={index} className="p-3 bg-zinc-900/40 border border-zinc-800/70 rounded-xl">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-sm font-semibold text-white">{item.name}</span>
+                    <span className="text-[9px] font-bold text-purple-300 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">
+                      {item.tag}
+                    </span>
+                  </div>
+                  <p className="text-xs text-zinc-400 leading-relaxed">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* 5. Cloud Deployments & DevOps Card (Span 2) */}
+          <motion.div
+            variants={cardVariants}
+            className="md:col-span-2 glass-card p-8 rounded-3xl border border-zinc-800/40 relative overflow-hidden group hover:border-zinc-700/50 transition-all duration-300"
           >
             <div className="absolute -left-10 -bottom-10 w-44 h-44 bg-cyan-500/10 rounded-full glow-blur" aria-hidden="true" />
 
@@ -245,13 +286,13 @@ export default function Skills() {
                 <Cloud className="w-6 h-6" aria-hidden="true" />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-white">Cloud Deployments & DevOps</h3>
-                <p className="text-xs text-cyan-300 font-medium">AWS Infrastructure & CI/CD Pipelines</p>
+                <h3 className="text-xl font-bold text-white">Cloud Infrastructure & DevOps</h3>
+                <p className="text-xs text-cyan-300 font-medium">AWS Deployment, CDN Acceleration & CI/CD Pipelines</p>
               </div>
             </div>
 
             <p className="text-sm text-zinc-300 mb-6 leading-relaxed">
-              Managing AWS setups for security, low-latency asset delivery (CloudFront CDN), cost-efficiency (S3/EC2 optimization), custom routing (Route 53), and auto-triggered GitHub Action releases.
+              Deploying production fullstack architectures on AWS with auto-scaling compute (EC2), scalable storage (S3), global low-latency CDN distribution (CloudFront), secure DNS routing (Route 53), and automated deployment pipelines via GitHub Actions.
             </p>
 
             <div className="flex flex-wrap gap-2.5">
@@ -274,3 +315,4 @@ export default function Skills() {
     </section>
   );
 }
+

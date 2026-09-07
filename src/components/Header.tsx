@@ -118,7 +118,7 @@ export default function Header({ activeSection }: HeaderProps) {
 
           <a
             href={resumeUrl}
-            download="Gunasekaran_Selvarasu_Resume_SeniorFrontend.pdf"
+            download="Gunasekaran_Selvarasu_Resume_Fullstack.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 text-white shadow-md shadow-indigo-500/10 hover:shadow-indigo-500/20 active:scale-95 transition-all"
@@ -189,7 +189,7 @@ export default function Header({ activeSection }: HeaderProps) {
               </div>
               <a
                 href={resumeUrl}
-                download="Gunasekaran_Selvarasu_Resume_SeniorFrontend.pdf"
+                download="Gunasekaran_Selvarasu_Resume_Fullstack.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full text-center py-3.5 mt-2 rounded-xl text-base font-semibold bg-gradient-to-r from-indigo-500 to-cyan-500 text-white shadow-lg shadow-indigo-500/10"

@@ -95,7 +95,7 @@ export default function Contact() {
             Get In Touch
           </h2>
           <p className="text-zinc-300 text-base sm:text-lg">
-            Let's collaborate on enterprise frontend products, performance audits, or cloud infrastructure setups.
+            Let's collaborate on fullstack web applications, scalable backend APIs, SSR platforms, or cloud infrastructure setups.
           </p>
         </div>
 

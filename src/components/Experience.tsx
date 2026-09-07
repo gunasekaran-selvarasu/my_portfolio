@@ -17,59 +17,60 @@ export default function Experience() {
 
   const experiences: Position[] = [
     {
-      role: 'Senior Software Engineer (Frontend)',
+      role: 'Senior Software Engineer',
       company: 'Doodleblue Innovations',
       period: 'Jun 2025 – Apr 2026',
       location: 'Chennai, India',
-      summary: 'Led frontend development squads to establish standardized, performant frontend patterns and scalable component designs.',
+      summary: 'Led engineering squads delivering fullstack TypeScript web applications, scalable Node.js/Express REST microservices, and modular React/Ant Design frontends.',
       bullets: [
-        'Headed frontend squads, mentoring developers and implementing strict TypeScript + ESLint code quality practices.',
-        'Established modular React + TS enterprise web architectures, driving reusability and boosting development cycle velocity by 30%.',
-        'Engineered high-performance REST API integrations with comprehensive Axios middleware, request caching, and error boundary handling.',
-        'Spearheaded modern state management pipelines using Redux Toolkit to sync real-time data flows seamlessly across views.'
+        'Headed full-stack squads, mentoring engineers on end-to-end TypeScript, Node.js API best practices, and clean architecture.',
+        'Designed and integrated resilient RESTful microservices using Node.js, Express, and MongoDB, optimizing database querying and data pipelines.',
+        'Implemented secure stateless authentication using JWT and OAuth 2.0 with automated token refresh cycles and role-based permissions.',
+        'Established modular React + TS enterprise architectures using Ant Design & Tailwind CSS, boosting development cycle velocity by 30%.',
+        'Spearheaded state management pipelines using Redux Toolkit to seamlessly synchronize real-time data flows between client and backend.'
       ],
-      tech: ['React.js', 'TypeScript', 'Redux Toolkit', 'Axios', 'Tailwind CSS', 'ESLint', 'REST APIs']
+      tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'TypeScript', 'Redux Toolkit', 'Ant Design', 'Tailwind CSS', 'JWT', 'REST APIs']
     },
     {
-      role: 'Software Developer (Frontend)',
+      role: 'Software Developer',
       company: 'W2S Solutions',
       period: 'Jan 2024 – May 2025',
       location: 'Chennai, India',
-      summary: 'Engineered cloud-native client applications, focusing heavily on cloud configuration, DevOps integrations, and SaaS architecture.',
+      summary: 'Engineered cloud-native full-stack client and server applications, focusing on Next.js SSR, MySQL database schemas, and automated AWS DevOps pipelines.',
       bullets: [
-        'Developed full-featured, cloud-native web applications for complex enterprise SaaS clients using React and Next.js.',
-        'Optimized AWS cloud infrastructure setups (S3 bucket configurations, CloudFront caching layers, EC2 provisioning) reducing hosting cost metrics.',
-        'Integrated automated CI/CD workflows utilizing GitHub Actions for rapid deployments, reducing release cycles down to minutes.',
-        'Architected high-traffic databases and layouts, supporting multi-tenancy auth strategies and custom user permissions.'
+        'Architected full-featured cloud SaaS applications using Next.js (SSR / Server Components) and Node.js backend services.',
+        'Designed high-traffic relational MySQL database schemas, indexing strategies, and multi-tenancy auth flows with secure JWT session management.',
+        'Optimized AWS cloud infrastructure (S3 bucket configurations, CloudFront CDN caching, EC2 provisioning) reducing hosting cost metrics.',
+        'Integrated automated CI/CD workflows utilizing GitHub Actions for rapid deployments, reducing release cycles down to minutes.'
       ],
-      tech: ['React.js', 'Next.js', 'AWS', 'S3', 'CloudFront', 'EC2', 'GitHub Actions', 'CI/CD', 'TypeScript']
+      tech: ['Next.js', 'React.js', 'Node.js', 'MySQL', 'MongoDB', 'AWS', 'EC2', 'S3', 'GitHub Actions', 'JWT', 'SSR']
     },
     {
       role: 'Senior Programmer Analyst',
       company: 'Genxlead Solutions',
       period: 'Nov 2023 – Dec 2023',
       location: 'Chennai, India',
-      summary: 'Provided fast-paced technical consulting and cloud solutions for rapid business milestone executions.',
+      summary: 'Provided fast-paced full-stack technical consulting, database migrations, and cloud solutions for rapid business milestone executions.',
       bullets: [
-        'Executed client consultations to identify product bottlenecks and establish immediate feature delivery plans.',
-        'Leveraged AWS cloud configurations (including Route 53 routing tables and Amplify deployments) to decrease latency metrics.',
-        'Refactored legacy vanilla JS modules into modern, typed TypeScript structures to improve long-term code stability.'
+        'Executed client consultations to identify system bottlenecks and establish immediate full-stack feature delivery plans.',
+        'Refactored legacy backend routes and frontend scripts into modern, typed TypeScript and modular REST API services.',
+        'Leveraged AWS cloud configurations (including Route 53 routing tables and Amplify deployments) to decrease latency metrics.'
       ],
-      tech: ['TypeScript', 'AWS Amplify', 'Route 53', 'JavaScript', 'HTML5', 'CSS3', 'Web Performance']
+      tech: ['TypeScript', 'Node.js', 'JavaScript', 'AWS Amplify', 'Route 53', 'REST APIs', 'MySQL']
     },
     {
       role: 'Programmer Analyst',
       company: 'Touchmark Descience',
       period: 'Aug 2020 – Aug 2023',
       location: 'Chennai, India',
-      summary: 'Delivered multiple customer-facing applications, engineered end-to-end payment structures, and achieved critical speed optimizations.',
+      summary: 'Delivered multiple full-stack client platforms, engineered transactional payment pipelines, and achieved critical performance optimizations.',
       bullets: [
-        '3-year tenure delivering React/Next.js client applications, ensuring high accessibility (a11y) standards and responsive scaling.',
+        '3-year tenure delivering end-to-end React/Node.js web applications, ensuring high accessibility (a11y) standards and responsive scaling with Material UI and Tailwind CSS.',
+        'Integrated multi-currency payment checkouts (RazorPay and PayPal) with backend webhooks for secure transactional validation and database logging.',
         'Configured multi-tier AWS deployments including Route 53 domain mappings, S3 static assets, and basic AWS WAF firewalls.',
-        'Achieved a 35%+ average performance boost on core web vitals through bundle analysis, image optimization, and lazy loading.',
-        'Integrated multi-currency payment checkouts (RazorPay and PayPal) with backend webhooks for secure transactional validation.'
+        'Achieved a 35%+ average performance boost on core web vitals through bundle analysis, database query indexing, and caching.'
       ],
-      tech: ['React.js', 'Next.js', 'Tailwind CSS', 'AWS', 'RazorPay', 'PayPal', 'Route 53', 'S3', 'AWS WAF', 'Web Vitals']
+      tech: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'MySQL', 'Material UI', 'Tailwind CSS', 'AWS', 'RazorPay', 'PayPal']
     }
   ];
 
@@ -91,7 +92,7 @@ export default function Experience() {
             Professional Journey & Experience
           </h2>
           <p className="text-zinc-300 text-base sm:text-lg">
-            5+ years of driving web performance, organizing clean architectures, and deploying cloud systems.
+            5+ years of delivering end-to-end fullstack platforms, designing scalable Node.js/Express APIs, modeling databases, and orchestrating cloud systems.
           </p>
         </div>
 

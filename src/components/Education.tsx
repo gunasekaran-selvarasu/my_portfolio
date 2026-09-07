@@ -21,29 +21,29 @@ export default function Education() {
 
   const leadershipStrengths = [
     {
-      title: 'Team Leadership',
-      description: 'Headed multiple frontend squads. Championed developer alignment, agile tasks management, and target delivery velocities.',
+      title: 'Fullstack Squad Leadership',
+      description: 'Headed engineering squads delivering end-to-end features across React/Next.js frontends and Node.js microservices.',
       icon: Users,
       color: 'text-indigo-400',
       bg: 'bg-indigo-500/10'
     },
     {
-      title: 'Mentoring & Growth',
-      description: 'Mentored junior developers, guided modern React hooks best practices, and provided clean typescript patterns.',
+      title: 'Mentoring & Engineering Culture',
+      description: 'Mentored developers on clean TypeScript patterns, Node.js API standards, and database schema optimizations.',
       icon: Bookmark,
       color: 'text-cyan-400',
       bg: 'bg-cyan-500/10'
     },
     {
-      title: 'Rigorous Code Reviews',
-      description: 'Instituted coding standards, review guidelines, and accessibility audits. Decreased production UI bugs noticeably.',
+      title: 'Architecture & Code Reviews',
+      description: 'Instituted coding standards, API contract reviews, security checks (JWT/OAuth), and performance audits.',
       icon: FileCheck,
       color: 'text-purple-400',
       bg: 'bg-purple-500/10'
     },
     {
-      title: 'Cross-Collaboration',
-      description: 'Worked alongside UI/UX designers, backend squads, product owners, and AWS sysops to orchestrate robust solutions.',
+      title: 'Cross-Functional Delivery',
+      description: 'Aligned product managers, UI/UX designers, and DevOps engineers to ship reliable SaaS solutions on AWS.',
       icon: ShieldCheck,
       color: 'text-amber-400',
       bg: 'bg-amber-500/10'
