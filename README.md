@@ -90,7 +90,7 @@ To build the application for deployment:
 ```bash
 npm run build
 ```
-The output directory will be created at `/dist` containing highly optimized static assets ready to host on platforms like AWS S3, CloudFront, Amplify, Netlify, or Vercel.
+The output directory will be created at `/dist` containing highly optimized static assets ready to host on platforms like Cloudflare Pages, AWS S3, CloudFront, or Amplify.
 
 ---
 

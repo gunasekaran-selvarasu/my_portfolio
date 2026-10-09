@@ -10,8 +10,6 @@ import {
   EducationSkeleton,
   ContactSkeleton,
 } from './components/skeletons/SectionSkeleton';
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/react';
 
 // Code Splitting / Lazy Loading for below-the-fold sections to achieve TBT <= 150ms
 const Skills = lazy(() => import('./components/Skills'));
@@ -101,9 +99,6 @@ export default function App() {
         {/* Footer */}
         <Footer />
 
-        {/* Vercel Analytics & Speed Insights */}
-        <Analytics />
-        <SpeedInsights />
       </div>
     </LazyMotion>
   );

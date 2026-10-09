@@ -2,17 +2,17 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://gunasekaran-selvarasu-five.vercel.app/</loc>
+    <loc>https://guna.dev/</loc>
     <lastmod>2026-10-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://gunasekaran-selvarasu-five.vercel.app/profile/gunasekaran_selvarasu.webp</image:loc>
+      <image:loc>https://guna.dev/profile/gunasekaran_selvarasu.webp</image:loc>
       <image:title>Gunasekaran Selvarasu - Senior Fullstack Developer</image:title>
       <image:caption>Gunasekaran Selvarasu, Senior Fullstack Developer &amp; AWS Certified Cloud Practitioner</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://gunasekaran-selvarasu-five.vercel.app/og-image.png</image:loc>
+      <image:loc>https://guna.dev/og-image.png</image:loc>
       <image:title>Gunasekaran Selvarasu Portfolio Preview</image:title>
       <image:caption>Fullstack Development Portfolio featuring React, Next.js, Node.js, and AWS</image:caption>
     </image:image>

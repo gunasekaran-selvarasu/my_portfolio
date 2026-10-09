@@ -38,9 +38,6 @@ export default defineConfig({
             if (id.includes('lucide-react')) {
               return 'vendor-icons';
             }
-            if (id.includes('@vercel/analytics') || id.includes('@vercel/speed-insights')) {
-              return 'vendor-vercel';
-            }
             if (id.includes('react-google-recaptcha') || id.includes('@emailjs')) {
               return 'vendor-contact-utils';
             }

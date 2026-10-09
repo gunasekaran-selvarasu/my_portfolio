@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://gunasekaran-selvarasu-five.vercel.app/sitemap.xml
-Host: https://gunasekaran-selvarasu-five.vercel.app
+Sitemap: https://guna.dev/sitemap.xml
+Host: https://guna.dev
