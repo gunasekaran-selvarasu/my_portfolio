@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://gunasekaran-selvarasu-five.vercel.app/sitemap.xml
+Host: https://gunasekaran-selvarasu-five.vercel.app

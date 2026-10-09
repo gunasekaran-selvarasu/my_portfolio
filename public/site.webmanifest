@@ -1,0 +1,17 @@
+{
+  "name": "Gunasekaran Selvarasu Portfolio",
+  "short_name": "Gunasekaran.dev",
+  "description": "Senior Fullstack Developer & AWS Certified Cloud Practitioner specializing in React, Next.js, Node.js, TypeScript, and Cloud Architecture.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#09090b",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
