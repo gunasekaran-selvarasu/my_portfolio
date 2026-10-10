@@ -51,7 +51,7 @@ export default function Education() {
   ];
 
   return (
-    <section id="cloud" className="relative py-24 bg-zinc-950/60 overflow-hidden" aria-label="Education and Leadership Strengths">
+    <section id="cloud" className="relative py-24 bg-zinc-950/60 overflow-hidden scroll-mt-20" aria-label="Education and Leadership Strengths">
       {/* Top Faded Divider */}
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-800/80 to-transparent" aria-hidden="true" />
       {/* Background Gradients */}

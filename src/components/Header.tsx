@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { m as motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Github, Linkedin, FileText } from 'lucide-react';
 import resumeUrl from '../assets/docs/Gunasekaran_Selvarasu_FullStack_Resume.pdf';
@@ -10,6 +11,9 @@ interface HeaderProps {
 export default function Header({ activeSection }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,25 +23,76 @@ export default function Header({ activeSection }: HeaderProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close mobile menu on Escape key or when screen is resized to desktop
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsOpen(false);
+      }
+    };
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  // Close mobile menu when clicking outside header
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleClickOutside = (e: MouseEvent | TouchEvent) => {
+      if (headerRef.current && !headerRef.current.contains(e.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, [isOpen]);
+
   const navLinks = [
     { name: 'About', href: '#about' },
     { name: 'Skills', href: '#skills' },
     { name: 'Experience', href: '#experience' },
     { name: 'Projects', href: '#projects' },
     { name: 'Cloud & Architecture', href: '#cloud' },
+    { name: 'Blog', href: '/blog' },
     { name: 'Contact', href: '#contact' },
   ];
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setIsOpen(false);
+
+    // If it's the Blog link or another route
+    if (href.startsWith('/')) {
+      navigate(href);
+      return;
+    }
+
+    // If we're not on the home page, navigate to home with the hash
+    if (location.pathname !== '/') {
+      navigate('/' + href);
+      return;
+    }
+
+    // On home page: smooth scroll to section
     const element = document.querySelector(href);
     if (element) {
       const offset = 80; // height of the header
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = Math.max(0, elementPosition - offset);
 
       window.scrollTo({
         top: offsetPosition,
@@ -46,21 +101,32 @@ export default function Header({ activeSection }: HeaderProps) {
     }
   };
 
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    setIsOpen(false);
+    if (location.pathname !== '/') {
+      navigate('/');
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
     <motion.header
-      className={`fixed top-0 left-0 right-0 z-50 border-b transition-all duration-300 ${scrolled
-        ? 'py-4 bg-zinc-950/70 backdrop-blur-md border-zinc-800/40 shadow-lg shadow-zinc-950/20'
-        : 'py-6 bg-transparent border-transparent'
+      ref={headerRef}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled || isOpen
+        ? 'bg-zinc-950/90 backdrop-blur-md border-b border-zinc-800/40 shadow-lg shadow-zinc-950/20'
+        : 'bg-transparent border-b border-transparent'
         }`}
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+      <div className={`max-w-7xl mx-auto px-6 flex items-center justify-between transition-all duration-300 ${scrolled || isOpen ? 'py-4' : 'py-6'}`}>
         {/* Logo */}
         <a
-          href="#about"
-          onClick={(e) => handleLinkClick(e, '#about')}
+          href="/"
+          onClick={handleLogoClick}
           className="text-2xl font-bold tracking-tight text-white flex items-center gap-1 group"
           aria-label="Gunasekaran Selvarasu Portfolio Homepage"
         >
@@ -73,7 +139,9 @@ export default function Header({ activeSection }: HeaderProps) {
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex items-center gap-1 bg-zinc-900/40 border border-zinc-800/50 rounded-full px-2 py-1.5 backdrop-blur-sm" aria-label="Desktop Main Navigation">
           {navLinks.map((link) => {
-            const isActive = activeSection === link.href.slice(1);
+            const isActive = link.href.startsWith('/')
+              ? location.pathname === link.href || (link.href === '/blog' && location.pathname.startsWith('/blog'))
+              : activeSection === link.href.slice(1);
             return (
               <a
                 key={link.name}
@@ -146,15 +214,17 @@ export default function Header({ activeSection }: HeaderProps) {
         {isOpen && (
           <motion.div
             id="mobile-menu"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="lg:hidden w-full bg-zinc-950/95 backdrop-blur-lg border-b border-zinc-800/60 overflow-hidden"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="lg:hidden w-full bg-zinc-950/95 backdrop-blur-lg border-b border-zinc-800/60 max-h-[calc(100dvh-5rem)] overflow-y-auto"
           >
             <nav className="px-6 py-6 flex flex-col gap-4" aria-label="Mobile Navigation">
               {navLinks.map((link) => {
-                const isActive = activeSection === link.href.slice(1);
+                const isActive = link.href.startsWith('/')
+                  ? location.pathname === link.href || (link.href === '/blog' && location.pathname.startsWith('/blog'))
+                  : activeSection === link.href.slice(1);
                 return (
                   <a
                     key={link.name}

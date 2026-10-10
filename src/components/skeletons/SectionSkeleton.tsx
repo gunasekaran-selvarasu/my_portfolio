@@ -1,6 +1,6 @@
 export function SkillsSkeleton() {
   return (
-    <section id="skills" className="relative py-24 bg-zinc-950 overflow-hidden min-h-[650px]" aria-label="Loading Skills">
+    <section id="skills" className="relative py-24 bg-zinc-950 overflow-hidden min-h-[650px] scroll-mt-20" aria-label="Loading Skills">
       <div className="max-w-7xl mx-auto px-6 relative z-10 animate-pulse">
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <div className="h-10 w-96 max-w-full bg-zinc-800/60 rounded-xl mx-auto" />
@@ -19,7 +19,7 @@ export function SkillsSkeleton() {
 
 export function ExperienceSkeleton() {
   return (
-    <section id="experience" className="relative py-24 bg-zinc-950/60 overflow-hidden min-h-[600px]" aria-label="Loading Experience">
+    <section id="experience" className="relative py-24 bg-zinc-950/60 overflow-hidden min-h-[600px] scroll-mt-20" aria-label="Loading Experience">
       <div className="max-w-4xl mx-auto px-6 relative z-10 animate-pulse">
         <div className="text-center mb-16 space-y-4">
           <div className="h-10 w-80 bg-zinc-800/60 rounded-xl mx-auto" />
@@ -44,7 +44,7 @@ export function ExperienceSkeleton() {
 
 export function ProjectsSkeleton() {
   return (
-    <section id="projects" className="relative py-24 bg-zinc-950 overflow-hidden min-h-[750px]" aria-label="Loading Projects">
+    <section id="projects" className="relative py-24 bg-zinc-950 overflow-hidden min-h-[750px] scroll-mt-20" aria-label="Loading Projects">
       <div className="max-w-7xl mx-auto px-6 relative z-10 animate-pulse">
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <div className="h-10 w-96 max-w-full bg-zinc-800/60 rounded-xl mx-auto" />
@@ -69,7 +69,7 @@ export function ProjectsSkeleton() {
 
 export function EducationSkeleton() {
   return (
-    <section id="cloud" className="relative py-24 bg-zinc-950/60 overflow-hidden min-h-[500px]" aria-label="Loading Education">
+    <section id="cloud" className="relative py-24 bg-zinc-950/60 overflow-hidden min-h-[500px] scroll-mt-20" aria-label="Loading Education">
       <div className="max-w-7xl mx-auto px-6 relative z-10 animate-pulse">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           <div className="lg:col-span-5 space-y-6">
@@ -95,7 +95,7 @@ export function EducationSkeleton() {
 
 export function ContactSkeleton() {
   return (
-    <section id="contact" className="relative py-24 bg-zinc-950 overflow-hidden min-h-[600px]" aria-label="Loading Contact">
+    <section id="contact" className="relative py-24 bg-zinc-950 overflow-hidden min-h-[600px] scroll-mt-20" aria-label="Loading Contact">
       <div className="max-w-7xl mx-auto px-6 relative z-10 animate-pulse">
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <div className="h-10 w-64 bg-zinc-800/60 rounded-xl mx-auto" />

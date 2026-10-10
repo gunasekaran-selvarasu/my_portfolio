@@ -79,7 +79,7 @@ export default function Experience() {
   };
 
   return (
-    <section id="experience" className="relative py-24 bg-zinc-950/60 overflow-hidden" aria-label="Work Experience and Career History">
+    <section id="experience" className="relative py-24 bg-zinc-950/60 overflow-hidden scroll-mt-20" aria-label="Work Experience and Career History">
       {/* Top Faded Divider */}
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-800/80 to-transparent" aria-hidden="true" />
       <div className="absolute inset-0 z-0" aria-hidden="true">

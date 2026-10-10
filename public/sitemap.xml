@@ -1,20 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://guna.dev/</loc>
-    <lastmod>2026-10-09</lastmod>
+    <lastmod>2026-10-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://guna.dev/profile/gunasekaran_selvarasu.webp</image:loc>
-      <image:title>Gunasekaran Selvarasu - Senior Fullstack Developer</image:title>
-      <image:caption>Gunasekaran Selvarasu, Senior Fullstack Developer &amp; AWS Certified Cloud Practitioner</image:caption>
-    </image:image>
-    <image:image>
-      <image:loc>https://guna.dev/og-image.png</image:loc>
-      <image:title>Gunasekaran Selvarasu Portfolio Preview</image:title>
-      <image:caption>Fullstack Development Portfolio featuring React, Next.js, Node.js, and AWS</image:caption>
-    </image:image>
+  </url>
+  <url>
+    <loc>https://guna.dev/blog</loc>
+    <lastmod>2026-03-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://guna.dev/blog/mastering-aws-cloudfront-nextjs-caching</loc>
+    <lastmod>2026-03-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://guna.dev/blog/resilient-nodejs-postgresql-connection-pooling</loc>
+    <lastmod>2026-02-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://guna.dev/blog/achieving-sub-100ms-tbt-react-spas</loc>
+    <lastmod>2026-01-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>

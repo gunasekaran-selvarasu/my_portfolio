@@ -63,6 +63,27 @@ export default function App() {
     };
   }, []);
 
+  // Handle hash navigation when arriving from /blog
+  useEffect(() => {
+    document.title = 'Gunasekaran Selvarasu – Senior Fullstack Developer & AWS Certified';
+
+    if (window.location.hash) {
+      const hash = window.location.hash;
+      const timer = setTimeout(() => {
+        const el = document.querySelector(hash);
+        if (el) {
+          const offset = 80;
+          const elementPosition = el.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({
+            top: Math.max(0, elementPosition - offset),
+            behavior: 'smooth'
+          });
+        }
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
   return (
     <LazyMotion features={domMax} strict>
       <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col selection:bg-indigo-500/30 selection:text-indigo-200">
