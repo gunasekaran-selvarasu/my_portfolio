@@ -57,10 +57,10 @@ export default function BlogListClient({ allPosts, categories }: BlogListClientP
                 <Sparkles className="w-3.5 h-3.5" aria-hidden="true" />
                 <span>Engineering &amp; Cloud Insights</span>
               </div>
-              <h1 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight">
+              <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight break-words">
                 Architectural Insights &amp; Technical Deep Dives
               </h1>
-              <p className="text-zinc-300 text-base sm:text-lg leading-relaxed">
+              <p className="text-zinc-300 text-sm sm:text-base lg:text-lg leading-relaxed">
                 Battle-tested patterns, system architecture case studies, and performance engineering lessons from building scalable fullstack applications.
               </p>
             </div>
@@ -71,9 +71,9 @@ export default function BlogListClient({ allPosts, categories }: BlogListClientP
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="mb-16"
+                className="mb-12 sm:mb-16"
               >
-                <div className="relative rounded-3xl overflow-hidden glass-card border border-indigo-500/30 p-8 sm:p-10 bg-gradient-to-br from-indigo-950/20 via-zinc-900/40 to-cyan-950/20">
+                <div className="relative rounded-3xl overflow-hidden glass-card border border-indigo-500/30 p-5 sm:p-8 md:p-10 bg-gradient-to-br from-indigo-950/20 via-zinc-900/40 to-cyan-950/20">
                   <div className="flex flex-wrap items-center gap-3 mb-4">
                     <span className="px-3 py-1 rounded-full text-xs font-bold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
                       Featured Post
@@ -88,11 +88,11 @@ export default function BlogListClient({ allPosts, categories }: BlogListClientP
                     </span>
                   </div>
 
-                  <Link href={`/blog/${featuredPost.slug}`} className="group block space-y-4">
-                    <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white group-hover:text-indigo-300 transition-colors">
+                  <Link href={`/blog/${featuredPost.slug}`} className="group block space-y-3 sm:space-y-4">
+                    <h2 className="text-xl sm:text-3xl lg:text-4xl font-extrabold text-white group-hover:text-indigo-300 transition-colors break-words">
                       {featuredPost.title}
                     </h2>
-                    <p className="text-zinc-300 text-sm sm:text-base leading-relaxed max-w-4xl">
+                    <p className="text-zinc-300 text-xs sm:text-sm lg:text-base leading-relaxed max-w-4xl">
                       {featuredPost.description}
                     </p>
                   </Link>
