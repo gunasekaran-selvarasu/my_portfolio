@@ -7,7 +7,7 @@ readTime: "7 min read"
 category: "Cloud & DevOps"
 tags: ["AWS", "CloudFront", "Next.js", "CDN", "Performance"]
 coverImage: "/og-image.png"
-featured: true
+featured: false
 ---
 
 Deploying server-side rendered (SSR) web applications at enterprise scale often introduces a classic engineering tradeoff: **dynamic freshness versus edge latency**. When every request hits your Node.js or Next.js container, compute bills climb and TTFB (Time to First Byte) suffers across distributed geographic regions.

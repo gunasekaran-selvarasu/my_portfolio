@@ -113,3 +113,69 @@ test.describe('Blog Post Reading Experience & Navigation', () => {
     await expect(page.locator('h1')).toContainText('Architectural Insights');
   });
 });
+
+test.describe('15 DevOps Projects Roadmap Post & Features', () => {
+  const roadmapPostPath = '/blog/15-devops-projects-roadmap-with-code-examples/';
+
+  test.beforeEach(async ({ page }) => {
+    await page.goto(roadmapPostPath);
+  });
+
+  test('Renders complete DevOps roadmap post, title, author, and prose body', async ({ page }) => {
+    const title = page.locator('h1');
+    await expect(title).toBeVisible();
+    await expect(title).toContainText('15 Production DevOps Projects Roadmap');
+
+    await expect(page.getByText('Gunasekaran Selvarasu').first()).toBeVisible();
+    await expect(page.getByText('Cloud & DevOps').first()).toBeVisible();
+
+    const prose = page.locator('.prose');
+    await expect(prose).toBeVisible();
+  });
+
+  test('Table of Contents links correctly and tracks major curriculum levels', async ({ page }) => {
+    const toc = page.locator('h4', { hasText: 'Table of Contents' });
+    await expect(toc).toBeVisible();
+
+    await expect(page.getByRole('link', { name: /Level 1: Foundations/i })).toBeVisible();
+    await expect(page.getByRole('link', { name: /Level 2: Containers & CI\/CD Pipelines/i })).toBeVisible();
+    await expect(page.getByRole('link', { name: /Level 3: Cloud & Infrastructure as Code/i })).toBeVisible();
+    await expect(page.getByRole('link', { name: /Level 4: Observability & DevSecOps/i })).toBeVisible();
+    await expect(page.getByRole('link', { name: /Level 5: Production Reliability/i })).toBeVisible();
+    await expect(page.getByRole('link', { name: /Strategic Career Paths/i })).toBeVisible();
+  });
+
+  test('Renders responsive markdown tables without object Object text', async ({ page }) => {
+    const tableContainers = page.locator('.table-container');
+    const count = await tableContainers.count();
+    expect(count).toBeGreaterThanOrEqual(2);
+
+    // Verify table has real header and cell text
+    const firstTable = tableContainers.first();
+    await expect(firstTable).toBeVisible();
+    await expect(firstTable.locator('th').first()).toBeVisible();
+    await expect(firstTable.locator('td').first()).toBeVisible();
+
+    // Verify absolutely no [object Object] in the entire page
+    const pageContent = await page.content();
+    expect(pageContent).not.toContain('[object Object]');
+  });
+
+  test('Code blocks feature copy button and language badge', async ({ page, context }) => {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+
+    const codeWrappers = page.locator('.code-block-wrapper');
+    const count = await codeWrappers.count();
+    expect(count).toBeGreaterThanOrEqual(10);
+
+    const firstWrapper = codeWrappers.first();
+    await firstWrapper.scrollIntoViewIfNeeded();
+    await expect(firstWrapper).toBeVisible();
+
+    const copyBtn = firstWrapper.locator('.copy-code-btn');
+    await expect(copyBtn).toBeVisible();
+    await copyBtn.click();
+    await expect(copyBtn.getByText('Copied!')).toBeVisible();
+  });
+});
+
