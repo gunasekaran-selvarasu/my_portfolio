@@ -16,9 +16,10 @@ import Footer from '../../../components/Footer';
 import ReadingProgress from './ReadingProgress';
 import TableOfContents from './TableOfContents';
 import ShareButtons from './ShareButtons';
+import ArticleBody from './ArticleBody';
 import { getAllPosts, getPostBySlug, getAdjacentPosts } from '../../../lib/blog';
 
-// Configure custom marked renderer for headings with anchor IDs
+// Configure custom marked renderer for headings, code blocks with copy button, and responsive tables
 const renderer = new marked.Renderer();
 
 renderer.heading = function ({ tokens, depth }) {
@@ -28,6 +29,41 @@ renderer.heading = function ({ tokens, depth }) {
     .replace(/[^\w\s-]/g, '')
     .replace(/\s+/g, '-');
   return `<h${depth} id="${headingSlug}" class="scroll-mt-24">${text}</h${depth}>`;
+};
+
+renderer.code = function ({ text, lang }: { text: string; lang?: string; escaped?: boolean }) {
+  const cleanLang = (lang || '').trim().split(/\s+/)[0] || 'code';
+  const escapedText = text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+
+  return `<div class="code-block-wrapper group relative my-6 rounded-2xl overflow-hidden border border-zinc-800/90 bg-zinc-950/90 shadow-xl transition-all">
+  <div class="flex items-center justify-between px-4 py-2.5 bg-zinc-900/80 border-b border-zinc-800/80 text-xs font-mono select-none">
+    <div class="flex items-center gap-2 text-zinc-400">
+      <span class="inline-block w-2.5 h-2.5 rounded-full bg-indigo-500/80 shadow-sm shadow-indigo-500/50"></span>
+      <span class="uppercase font-semibold tracking-wider text-[11px] text-zinc-300">${cleanLang}</span>
+    </div>
+    <button
+      type="button"
+      class="copy-code-btn inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium text-zinc-400 hover:text-white bg-zinc-800/60 hover:bg-zinc-800 border border-zinc-700/50 hover:border-zinc-600 transition-all cursor-pointer active:scale-95"
+      aria-label="Copy code to clipboard"
+    >
+      <svg class="w-3.5 h-3.5 copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
+        <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+      </svg>
+      <span class="copy-text text-[11px]">Copy</span>
+    </button>
+  </div>
+  <pre class="p-4 sm:p-5 overflow-x-auto text-xs sm:text-sm font-mono text-zinc-200 leading-relaxed"><code class="language-${cleanLang}">${escapedText}</code></pre>
+</div>`;
+};
+
+renderer.table = function ({ header, rows }) {
+  return `<div class="table-container overflow-x-auto my-6 rounded-xl border border-zinc-800/80"><table class="w-full text-left border-collapse text-xs sm:text-sm"><thead>${header}</thead><tbody>${rows}</tbody></table></div>`;
 };
 
 marked.setOptions({
@@ -162,7 +198,7 @@ export default async function BlogPostPage({ params }: PageProps) {
       />
 
       <main className="flex-1 pt-32 pb-24">
-        <article className="max-w-4xl mx-auto px-6">
+        <article className="max-w-4xl mx-auto px-4 sm:px-6">
           {/* Breadcrumb Navigation */}
           <nav
             className="flex items-center gap-2 text-xs sm:text-sm text-zinc-400 mb-8"
@@ -176,7 +212,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               Blog
             </Link>
             <ChevronRight className="w-4 h-4 text-zinc-600" aria-hidden="true" />
-            <span className="text-indigo-400 font-medium truncate max-w-[200px] sm:max-w-xs">
+            <span className="text-indigo-400 font-medium truncate max-w-[180px] sm:max-w-xs">
               {post.title}
             </span>
           </nav>
@@ -197,11 +233,11 @@ export default async function BlogPostPage({ params }: PageProps) {
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight break-words">
               {post.title}
             </h1>
 
-            <p className="text-zinc-300 text-base sm:text-lg leading-relaxed">
+            <p className="text-zinc-300 text-sm sm:text-base lg:text-lg leading-relaxed">
               {post.description}
             </p>
 
@@ -230,25 +266,8 @@ export default async function BlogPostPage({ params }: PageProps) {
           {/* Table of Contents */}
           <TableOfContents headings={headings} />
 
-          {/* Article Body Content */}
-          <div
-            className="prose prose-invert prose-zinc max-w-none my-10 space-y-6 text-zinc-300 leading-relaxed text-base sm:text-lg
-              [&_h2]:text-2xl [&_h2]:sm:text-3xl [&_h2]:font-bold [&_h2]:text-white [&_h2]:mt-12 [&_h2]:mb-4
-              [&_h3]:text-xl [&_h3]:sm:text-2xl [&_h3]:font-bold [&_h3]:text-zinc-100 [&_h3]:mt-8 [&_h3]:mb-3
-              [&_p]:my-4 [&_p]:leading-relaxed
-              [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:my-4 [&_ul]:space-y-2
-              [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:my-4 [&_ol]:space-y-2
-              [&_li]:text-zinc-300
-              [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded-md [&_code]:bg-zinc-900 [&_code]:text-indigo-300 [&_code]:font-mono [&_code]:text-sm [&_code]:border [&_code]:border-zinc-800
-              [&_pre]:bg-zinc-950 [&_pre]:p-5 [&_pre]:rounded-2xl [&_pre]:border [&_pre]:border-zinc-800 [&_pre]:overflow-x-auto [&_pre]:my-6
-              [&_pre_code]:bg-transparent [&_pre_code]:p-0 [&_pre_code]:border-none [&_pre_code]:text-zinc-200 [&_pre_code]:text-sm
-              [&_table]:w-full [&_table]:my-6 [&_table]:border-collapse [&_table]:text-sm
-              [&_th]:bg-zinc-900/80 [&_th]:p-3 [&_th]:text-left [&_th]:font-bold [&_th]:text-white [&_th]:border [&_th]:border-zinc-800
-              [&_td]:p-3 [&_td]:border [&_td]:border-zinc-800/80 [&_td]:text-zinc-300
-              [&_blockquote]:border-l-4 [&_blockquote]:border-indigo-500 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-zinc-400 [&_blockquote]:my-6
-              [&_hr]:border-zinc-800/80 [&_hr]:my-10"
-            dangerouslySetInnerHTML={{ __html: htmlContent }}
-          />
+          {/* Article Body Content with Interactive Code Copy */}
+          <ArticleBody htmlContent={htmlContent} />
 
           {/* Tags */}
           <div className="pt-8 border-t border-zinc-800/80 flex flex-wrap gap-2 items-center">

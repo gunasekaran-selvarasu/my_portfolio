@@ -85,6 +85,25 @@ test.describe('Blog Post Reading Experience & Navigation', () => {
     await expect(page).not.toHaveURL(new RegExp(postPath));
   });
 
+  test('Code blocks feature language header, horizontal scrolling, and interactive copy button', async ({ page, context }) => {
+    await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+
+    const codeWrapper = page.locator('.code-block-wrapper').first();
+    await codeWrapper.scrollIntoViewIfNeeded();
+    await expect(codeWrapper).toBeVisible();
+
+    // Check language badge exists
+    await expect(codeWrapper.getByText(/typescript|tsx|bash|javascript/i)).toBeVisible();
+
+    // Check copy button
+    const copyCodeBtn = codeWrapper.locator('.copy-code-btn');
+    await expect(copyCodeBtn).toBeVisible();
+    await copyCodeBtn.click();
+
+    // Feedback shows Copied!
+    await expect(copyCodeBtn.getByText('Copied!')).toBeVisible();
+  });
+
   test('Back to All Articles button returns to /blog', async ({ page }) => {
     const backBtn = page.getByRole('link', { name: /Back to All Articles/i });
     await backBtn.scrollIntoViewIfNeeded();
