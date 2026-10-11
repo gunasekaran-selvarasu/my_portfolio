@@ -62,8 +62,12 @@ renderer.code = function ({ text, lang }: { text: string; lang?: string; escaped
 </div>`;
 };
 
-renderer.table = function ({ header, rows }) {
-  return `<div class="table-container overflow-x-auto my-6 rounded-xl border border-zinc-800/80"><table class="w-full text-left border-collapse text-xs sm:text-sm"><thead>${header}</thead><tbody>${rows}</tbody></table></div>`;
+// Preserve default table rendering mechanics and wrap in responsive container
+const defaultTableRenderer = marked.Renderer.prototype.table;
+
+renderer.table = function (token) {
+  const tableHtml = defaultTableRenderer.call(this, token);
+  return `<div class="table-container overflow-x-auto my-6 rounded-xl border border-zinc-800/80 bg-zinc-950/60">${tableHtml}</div>`;
 };
 
 marked.setOptions({
