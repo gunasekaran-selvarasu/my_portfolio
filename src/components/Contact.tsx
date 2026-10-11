@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useRef, lazy, Suspense } from 'react';
 import { m as motion, AnimatePresence } from 'framer-motion';
 import { Mail, MapPin, Linkedin, Github, Send, Copy, Check, MessageCircle, ExternalLink, ShieldCheck } from 'lucide-react';
@@ -40,10 +42,10 @@ export default function Contact() {
 
     setFormState('sending');
 
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-    const templateAdminId = import.meta.env.VITE_EMAILJS_TEMPLATE_ADMIN;
-    const templateCustomerId = import.meta.env.VITE_EMAILJS_TEMPLATE_CUSTOMER;
-    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || (typeof import.meta !== 'undefined' ? (import.meta as any).env?.VITE_EMAILJS_SERVICE_ID : undefined);
+    const templateAdminId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ADMIN || (typeof import.meta !== 'undefined' ? (import.meta as any).env?.VITE_EMAILJS_TEMPLATE_ADMIN : undefined);
+    const templateCustomerId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_CUSTOMER || (typeof import.meta !== 'undefined' ? (import.meta as any).env?.VITE_EMAILJS_TEMPLATE_CUSTOMER : undefined);
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || (typeof import.meta !== 'undefined' ? (import.meta as any).env?.VITE_EMAILJS_PUBLIC_KEY : undefined);
 
     if (!serviceId || !templateAdminId || !templateCustomerId || !publicKey) {
       console.error('EmailJS configuration variables are missing. Please verify your .env file.');
@@ -292,7 +294,7 @@ export default function Contact() {
                     >
                       <LazyReCAPTCHA
                         ref={recaptchaRef}
-                        sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY || 'dummy_site_key'}
+                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || (typeof import.meta !== 'undefined' ? (import.meta as any).env?.VITE_RECAPTCHA_SITE_KEY : undefined) || 'dummy_site_key'}
                         onChange={(token) => setRecaptchaToken(token)}
                         theme="dark"
                       />

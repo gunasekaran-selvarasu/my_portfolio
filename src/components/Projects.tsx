@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { m as motion, AnimatePresence } from 'framer-motion';
 import { Github, ExternalLink, Tag, Cpu, ShoppingBag, LayoutDashboard } from 'lucide-react';

@@ -1,8 +1,11 @@
+'use client';
+
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useRouter, usePathname } from 'next/navigation';
 import { m as motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Github, Linkedin, FileText } from 'lucide-react';
-import resumeUrl from '../assets/docs/Gunasekaran_Selvarasu_FullStack_Resume.pdf';
+
+const resumeUrl = '/Gunasekaran_Selvarasu_FullStack_Resume.pdf';
 
 interface HeaderProps {
   activeSection: string;
@@ -12,8 +15,8 @@ export default function Header({ activeSection }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
-  const navigate = useNavigate();
-  const location = useLocation();
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -77,13 +80,13 @@ export default function Header({ activeSection }: HeaderProps) {
 
     // If it's the Blog link or another route
     if (href.startsWith('/')) {
-      navigate(href);
+      router.push(href);
       return;
     }
 
     // If we're not on the home page, navigate to home with the hash
-    if (location.pathname !== '/') {
-      navigate('/' + href);
+    if (pathname !== '/') {
+      router.push('/' + href);
       return;
     }
 
@@ -104,10 +107,9 @@ export default function Header({ activeSection }: HeaderProps) {
   const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     setIsOpen(false);
-    if (location.pathname !== '/') {
-      navigate('/');
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (pathname !== '/') {
+      router.push('/');
     }
   };
 
@@ -140,7 +142,7 @@ export default function Header({ activeSection }: HeaderProps) {
         <nav className="hidden lg:flex items-center gap-1 bg-zinc-900/40 border border-zinc-800/50 rounded-full px-2 py-1.5 backdrop-blur-sm" aria-label="Desktop Main Navigation">
           {navLinks.map((link) => {
             const isActive = link.href.startsWith('/')
-              ? location.pathname === link.href || (link.href === '/blog' && location.pathname.startsWith('/blog'))
+              ? pathname === link.href || (link.href === '/blog' && pathname.startsWith('/blog'))
               : activeSection === link.href.slice(1);
             return (
               <a

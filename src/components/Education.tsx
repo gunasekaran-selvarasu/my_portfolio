@@ -1,3 +1,5 @@
+'use client';
+
 import { m as motion } from 'framer-motion';
 import { GraduationCap, Users, Bookmark, FileCheck, ShieldCheck } from 'lucide-react';
 

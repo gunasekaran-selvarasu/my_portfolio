@@ -14,7 +14,7 @@ RUN npm ci
 # Copy project source code
 COPY . .
 
-# Compile TypeScript, build with Vite, and pre-render static blog HTML
+# Compile TypeScript and pre-render Next.js static HTML export
 RUN npm run build
 
 # Stage 2: High-Performance Production Nginx Server
@@ -27,7 +27,7 @@ RUN rm -rf /usr/share/nginx/html/*
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy compiled and pre-rendered artifacts from builder stage
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/out /usr/share/nginx/html
 
 # Expose HTTP port
 EXPOSE 80

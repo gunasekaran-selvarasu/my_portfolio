@@ -1,17 +1,23 @@
+'use client';
+
 import { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { m as motion, LazyMotion, domMax } from 'framer-motion';
 import { Calendar, Clock, Search, ArrowRight, BookOpen, Sparkles, ChevronRight } from 'lucide-react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import { getAllPosts, getAllCategories } from '../utils/blog';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+import type { BlogPost } from '../../lib/blog';
 
-export default function BlogList() {
+interface BlogListClientProps {
+  allPosts: BlogPost[];
+  categories: string[];
+}
+
+export default function BlogListClient({ allPosts, categories }: BlogListClientProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
 
-  const allPosts = useMemo(() => getAllPosts(), []);
-  const categories = useMemo(() => ['All', ...getAllCategories()], []);
+  const allCategories = useMemo(() => ['All', ...categories], [categories]);
 
   const filteredPosts = useMemo(() => {
     return allPosts.filter((post) => {
@@ -38,7 +44,7 @@ export default function BlogList() {
           <div className="max-w-7xl mx-auto px-6">
             {/* Breadcrumb */}
             <nav className="flex items-center gap-2 text-xs sm:text-sm text-zinc-400 mb-8" aria-label="Breadcrumb">
-              <Link to="/" className="hover:text-white transition-colors">
+              <Link href="/" className="hover:text-white transition-colors">
                 Home
               </Link>
               <ChevronRight className="w-4 h-4 text-zinc-600" aria-hidden="true" />
@@ -59,7 +65,7 @@ export default function BlogList() {
               </p>
             </div>
 
-            {/* Featured Post Card (only shown when not searching) */}
+            {/* Featured Post Card */}
             {featuredPost && selectedCategory === 'All' && !searchQuery && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -82,7 +88,7 @@ export default function BlogList() {
                     </span>
                   </div>
 
-                  <Link to={`/blog/${featuredPost.slug}`} className="group block space-y-4">
+                  <Link href={`/blog/${featuredPost.slug}`} className="group block space-y-4">
                     <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white group-hover:text-indigo-300 transition-colors">
                       {featuredPost.title}
                     </h2>
@@ -101,7 +107,7 @@ export default function BlogList() {
                     </div>
 
                     <Link
-                      to={`/blog/${featuredPost.slug}`}
+                      href={`/blog/${featuredPost.slug}`}
                       className="inline-flex items-center gap-2 text-sm font-semibold text-indigo-400 group-hover:text-indigo-300 hover:translate-x-1 transition-all"
                     >
                       <span>Read Article</span>
@@ -116,11 +122,11 @@ export default function BlogList() {
             <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-10">
               {/* Category Pills */}
               <div className="flex flex-wrap gap-2 w-full md:w-auto" role="tablist" aria-label="Blog categories">
-                {categories.map((cat) => (
+                {allCategories.map((cat) => (
                   <button
                     key={cat}
                     onClick={() => setSelectedCategory(cat)}
-                    className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all ${
+                    className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all cursor-pointer ${
                       selectedCategory === cat
                         ? 'bg-indigo-500 text-white shadow-md shadow-indigo-500/20'
                         : 'bg-zinc-900/60 text-zinc-400 hover:text-white border border-zinc-800/80 hover:bg-zinc-900'
@@ -168,7 +174,7 @@ export default function BlogList() {
                         </div>
                       </div>
 
-                      <Link to={`/blog/${post.slug}`} className="block group">
+                      <Link href={`/blog/${post.slug}`} className="block group">
                         <h3 className="text-xl font-bold text-white group-hover:text-indigo-300 transition-colors line-clamp-2 leading-snug">
                           {post.title}
                         </h3>
@@ -184,7 +190,7 @@ export default function BlogList() {
                         {post.publishedAt}
                       </span>
                       <Link
-                        to={`/blog/${post.slug}`}
+                        href={`/blog/${post.slug}`}
                         className="text-xs font-semibold text-indigo-400 group-hover:text-indigo-300 inline-flex items-center gap-1"
                         aria-label={`Read article: ${post.title}`}
                       >
@@ -205,7 +211,7 @@ export default function BlogList() {
                     setSearchQuery('');
                     setSelectedCategory('All');
                   }}
-                  className="mt-4 px-4 py-2 bg-indigo-500/20 text-indigo-400 rounded-lg text-xs font-semibold hover:bg-indigo-500/30 transition-colors"
+                  className="mt-4 px-4 py-2 bg-indigo-500/20 text-indigo-400 rounded-lg text-xs font-semibold hover:bg-indigo-500/30 transition-colors cursor-pointer"
                 >
                   Reset filters
                 </button>
@@ -222,7 +228,7 @@ export default function BlogList() {
               </p>
               <div className="pt-2">
                 <Link
-                  to="/#contact"
+                  href="/#contact"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold bg-gradient-to-r from-indigo-500 to-cyan-500 hover:from-indigo-600 hover:to-cyan-600 text-white shadow-lg shadow-indigo-500/20 transition-all hover:scale-105"
                 >
                   <span>Discuss Your Project</span>
