@@ -1,8 +1,15 @@
 node_modules
 dist
+out
+.next
 .git
 .github
 .vscode
 scratch
 *.log
 .DS_Store
+playwright-report
+test-results
+ms-playwright
+e2e
+

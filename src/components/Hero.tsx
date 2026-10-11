@@ -1,7 +1,7 @@
+'use client';
+
 import { m as motion } from 'framer-motion';
 import { ArrowUpRight, Award, Zap, Code, ShieldCheck } from 'lucide-react';
-import profileWebp from '../assets/profile/gunasekaran_selvarasu.webp';
-import profileAvif from '../assets/profile/gunasekaran_selvarasu.avif';
 
 export default function Hero() {
   const containerVariants = {
@@ -27,14 +27,7 @@ export default function Hero() {
   const handleScrollTo = (id: string) => {
     const element = document.querySelector(id);
     if (element) {
-      const offset = 80;
-      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
-      const offsetPosition = Math.max(0, elementPosition - offset);
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
@@ -137,8 +130,6 @@ export default function Hero() {
                   <picture>
                     <source srcSet="/profile/gunasekaran_selvarasu.avif" type="image/avif" />
                     <source srcSet="/profile/gunasekaran_selvarasu.webp" type="image/webp" />
-                    <source srcSet={profileAvif} type="image/avif" />
-                    <source srcSet={profileWebp} type="image/webp" />
                     <img
                       src="/profile/gunasekaran_selvarasu.webp"
                       alt="Gunasekaran Selvarasu - Senior Fullstack Developer"

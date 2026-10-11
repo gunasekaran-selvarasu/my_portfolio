@@ -36,17 +36,17 @@ jobs:
       - name: Verify Pre-rendered Static Artifacts & Sitemap
         run: |
           echo "Verifying build outputs..."
-          test -f dist/index.html || { echo "Missing dist/index.html"; exit 1; }
-          test -f dist/blog/index.html || { echo "Missing dist/blog/index.html"; exit 1; }
-          test -f dist/sitemap.xml || { echo "Missing dist/sitemap.xml"; exit 1; }
+          test -f out/index.html || { echo "Missing out/index.html"; exit 1; }
+          test -f out/blog.html -o -f out/blog/index.html || { echo "Missing out/blog HTML"; exit 1; }
+          test -f out/sitemap.xml || { echo "Missing out/sitemap.xml"; exit 1; }
           
           # Check that blog posts are pre-rendered
-          grep -q "Mastering AWS CloudFront" dist/blog/mastering-aws-cloudfront-nextjs-caching/index.html || { echo "Missing CloudFront pre-rendered post"; exit 1; }
-          grep -q "Architecting Resilient PostgreSQL" dist/blog/resilient-nodejs-postgresql-connection-pooling/index.html || { echo "Missing PostgreSQL pre-rendered post"; exit 1; }
-          grep -q "Achieving Sub-100ms TBT" dist/blog/achieving-sub-100ms-tbt-react-spas/index.html || { echo "Missing TBT pre-rendered post"; exit 1; }
+          grep -rq "Mastering AWS CloudFront" out/blog/ || { echo "Missing CloudFront pre-rendered post"; exit 1; }
+          grep -rq "Architecting Resilient PostgreSQL" out/blog/ || { echo "Missing PostgreSQL pre-rendered post"; exit 1; }
+          grep -rq "Achieving Sub-100ms TBT" out/blog/ || { echo "Missing TBT pre-rendered post"; exit 1; }
           
           # Check sitemap contains /blog
-          grep -q "https://guna.dev/blog" dist/sitemap.xml || { echo "Sitemap missing /blog"; exit 1; }
+          grep -q "https://guna.dev/blog" out/sitemap.xml || { echo "Sitemap missing /blog"; exit 1; }
           
           echo "All static artifacts and SEO metadata verified successfully!"
 

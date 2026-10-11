@@ -1,3 +1,5 @@
+'use client';
+
 import { Github, Linkedin, Mail, ArrowUp, MessageCircle } from 'lucide-react';
 
 export default function Footer() {

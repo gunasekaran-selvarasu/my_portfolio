@@ -10,6 +10,8 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+out
+.next
 *.local
 
 # Editor directories and files
@@ -23,6 +25,14 @@ dist-ssr
 *.sln
 *.sw?
 
+# Environment Variables
 .env
 .env.*
+!.env.example
 
+# Playwright & Testing Artifacts
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+ms-playwright/

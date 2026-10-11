@@ -1,34 +1,33 @@
-import { useMemo, useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
+import Link from 'next/link';
 import { marked } from 'marked';
 import {
   Calendar,
   Clock,
   ArrowLeft,
-  Linkedin,
-  Twitter,
-  Copy,
-  Check,
   ChevronRight,
-  BookOpen,
   ArrowRight,
   Tag,
   ShieldCheck,
 } from 'lucide-react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import { getPostBySlug, getAllPosts } from '../utils/blog';
+import Header from '../../../components/Header';
+import Footer from '../../../components/Footer';
+import ReadingProgress from './ReadingProgress';
+import TableOfContents from './TableOfContents';
+import ShareButtons from './ShareButtons';
+import { getAllPosts, getPostBySlug, getAdjacentPosts } from '../../../lib/blog';
 
-// Configure marked renderer for custom headers and code styling
+// Configure custom marked renderer for headings with anchor IDs
 const renderer = new marked.Renderer();
 
 renderer.heading = function ({ tokens, depth }) {
   const text = this.parser.parseInline(tokens);
-  const slug = text
+  const headingSlug = text
     .toLowerCase()
     .replace(/[^\w\s-]/g, '')
     .replace(/\s+/g, '-');
-  return `<h${depth} id="${slug}" class="scroll-mt-24">${text}</h${depth}>`;
+  return `<h${depth} id="${headingSlug}" class="scroll-mt-24">${text}</h${depth}>`;
 };
 
 marked.setOptions({
@@ -37,122 +36,143 @@ marked.setOptions({
   breaks: true,
 });
 
-export default function BlogPost() {
-  const { slug } = useParams<{ slug: string }>();
-  const [copied, setCopied] = useState(false);
+interface PageProps {
+  params: Promise<{ slug: string }>;
+}
 
-  const post = useMemo(() => (slug ? getPostBySlug(slug) : undefined), [slug]);
-  const allPosts = useMemo(() => getAllPosts(), []);
+export async function generateStaticParams() {
+  const posts = getAllPosts();
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
 
-  // Adjacent posts
-  const currentIndex = allPosts.findIndex((p) => p.slug === slug);
-  const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null;
-  const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null;
-
-  // Convert markdown body to HTML
-  const htmlContent = useMemo(() => {
-    if (!post) return '';
-    return marked.parse(post.content) as string;
-  }, [post]);
-
-  // Extract table of contents (H2 headings)
-  const tableOfContents = useMemo(() => {
-    if (!post) return [];
-    const lines = post.content.split('\n');
-    const headings: { title: string; id: string }[] = [];
-
-    lines.forEach((line) => {
-      if (line.startsWith('## ')) {
-        const title = line.replace('## ', '').trim();
-        const id = title
-          .toLowerCase()
-          .replace(/[^\w\s-]/g, '')
-          .replace(/\s+/g, '-');
-        headings.push({ title, id });
-      }
-    });
-
-    return headings;
-  }, [post]);
-
-  // Scroll to top on mount
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  }, [slug]);
-
-  // Update document title for client-side navigation
-  useEffect(() => {
-    if (post) {
-      document.title = `${post.title} | Gunasekaran Selvarasu`;
-    }
-  }, [post]);
-
-  const currentUrl = typeof window !== 'undefined' ? window.location.href : '';
-
-  const handleCopyLink = () => {
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(currentUrl);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }
-  };
-
-  const shareLinkedIn = () => {
-    window.open(
-      `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}`,
-      '_blank',
-      'noopener,noreferrer'
-    );
-  };
-
-  const shareTwitter = () => {
-    window.open(
-      `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent(
-        post?.title || ''
-      )}`,
-      '_blank',
-      'noopener,noreferrer'
-    );
-  };
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
 
   if (!post) {
-    return (
-      <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col">
-        <Header activeSection="blog" />
-        <main className="flex-1 flex items-center justify-center pt-32 pb-24 px-6 text-center">
-          <div className="max-w-md space-y-4">
-            <BookOpen className="w-16 h-16 text-zinc-600 mx-auto" aria-hidden="true" />
-            <h1 className="text-3xl font-extrabold text-white">Article Not Found</h1>
-            <p className="text-zinc-400 text-sm">
-              The article you are looking for doesn't exist or has been moved.
-            </p>
-            <Link
-              to="/blog"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-500 text-white font-medium text-sm hover:bg-indigo-600 transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Back to Blog
-            </Link>
-          </div>
-        </main>
-        <Footer />
-      </div>
-    );
+    return {
+      title: 'Article Not Found',
+    };
   }
+
+  const postUrl = `https://guna.dev/blog/${post.slug}`;
+  const coverUrl = post.coverImage?.startsWith('http')
+    ? post.coverImage
+    : `https://guna.dev${post.coverImage || '/og-image.png'}`;
+
+  return {
+    title: post.title,
+    description: post.description,
+    alternates: {
+      canonical: postUrl,
+    },
+    openGraph: {
+      type: 'article',
+      title: `${post.title} | Gunasekaran Selvarasu`,
+      description: post.description,
+      url: postUrl,
+      publishedTime: post.publishedAt,
+      authors: ['Gunasekaran Selvarasu'],
+      images: [
+        {
+          url: coverUrl,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${post.title} | Gunasekaran Selvarasu`,
+      description: post.description,
+      images: [coverUrl],
+    },
+  };
+}
+
+export default async function BlogPostPage({ params }: PageProps) {
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
+
+  if (!post) {
+    notFound();
+  }
+
+  const { prev: prevPost, next: nextPost } = getAdjacentPosts(slug);
+
+  // Convert markdown to HTML on the server
+  const htmlContent = marked.parse(post.content) as string;
+
+  // Extract table of contents (H2 headings)
+  const lines = post.content.split('\n');
+  const headings: { title: string; id: string }[] = [];
+
+  lines.forEach((line) => {
+    if (line.startsWith('## ')) {
+      const title = line.replace('## ', '').trim();
+      const id = title
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, '')
+        .replace(/\s+/g, '-');
+      headings.push({ title, id });
+    }
+  });
+
+  const postUrl = `https://guna.dev/blog/${post.slug}`;
+  const coverUrl = post.coverImage?.startsWith('http')
+    ? post.coverImage
+    : `https://guna.dev${post.coverImage || '/og-image.png'}`;
+
+  // TechArticle structured data for rich snippets
+  const jsonLdArticle = {
+    '@context': 'https://schema.org',
+    '@type': 'TechArticle',
+    headline: post.title,
+    description: post.description,
+    url: postUrl,
+    image: coverUrl,
+    datePublished: post.publishedAt,
+    dateModified: post.publishedAt,
+    author: {
+      '@type': 'Person',
+      name: 'Gunasekaran Selvarasu',
+      url: 'https://guna.dev/',
+      jobTitle: 'Senior Fullstack Developer & AWS Certified Practitioner',
+    },
+    publisher: {
+      '@type': 'Person',
+      name: 'Gunasekaran Selvarasu',
+    },
+    keywords: post.tags.join(', '),
+    articleSection: post.category,
+  };
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col selection:bg-indigo-500/30 selection:text-indigo-200">
+      <ReadingProgress />
       <Header activeSection="blog" />
+
+      {/* Structured data injection */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdArticle) }}
+      />
 
       <main className="flex-1 pt-32 pb-24">
         <article className="max-w-4xl mx-auto px-6">
           {/* Breadcrumb Navigation */}
-          <nav className="flex items-center gap-2 text-xs sm:text-sm text-zinc-400 mb-8" aria-label="Breadcrumb">
-            <Link to="/" className="hover:text-white transition-colors">
+          <nav
+            className="flex items-center gap-2 text-xs sm:text-sm text-zinc-400 mb-8"
+            aria-label="Breadcrumb"
+          >
+            <Link href="/" className="hover:text-white transition-colors">
               Home
             </Link>
             <ChevronRight className="w-4 h-4 text-zinc-600" aria-hidden="true" />
-            <Link to="/blog" className="hover:text-white transition-colors">
+            <Link href="/blog" className="hover:text-white transition-colors">
               Blog
             </Link>
             <ChevronRight className="w-4 h-4 text-zinc-600" aria-hidden="true" />
@@ -196,68 +216,19 @@ export default function BlogPost() {
                     Gunasekaran Selvarasu
                     <ShieldCheck className="w-3.5 h-3.5 text-amber-400" aria-hidden="true" />
                   </div>
-                  <div className="text-xs text-zinc-400">Senior Fullstack Developer &amp; AWS Certified</div>
+                  <div className="text-xs text-zinc-400">
+                    Senior Fullstack Developer &amp; AWS Certified
+                  </div>
                 </div>
               </div>
 
               {/* Share buttons */}
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={shareLinkedIn}
-                  aria-label="Share on LinkedIn"
-                  className="p-2 text-zinc-400 hover:text-white bg-zinc-900/60 hover:bg-zinc-800 rounded-lg border border-zinc-800 transition-colors"
-                >
-                  <Linkedin className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={shareTwitter}
-                  aria-label="Share on Twitter"
-                  className="p-2 text-zinc-400 hover:text-white bg-zinc-900/60 hover:bg-zinc-800 rounded-lg border border-zinc-800 transition-colors"
-                >
-                  <Twitter className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={handleCopyLink}
-                  aria-label="Copy link to clipboard"
-                  className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-zinc-300 hover:text-white bg-zinc-900/60 hover:bg-zinc-800 rounded-lg border border-zinc-800 transition-colors"
-                >
-                  {copied ? (
-                    <>
-                      <Check className="w-3.5 h-3.5 text-emerald-400" />
-                      <span className="text-emerald-400">Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-3.5 h-3.5" />
-                      <span>Share</span>
-                    </>
-                  )}
-                </button>
-              </div>
+              <ShareButtons title={post.title} slug={post.slug} />
             </div>
           </header>
 
           {/* Table of Contents */}
-          {tableOfContents.length > 0 && (
-            <div className="my-10 p-6 rounded-2xl bg-zinc-900/40 border border-zinc-800/80">
-              <h4 className="text-xs font-extrabold uppercase tracking-wider text-indigo-400 mb-3">
-                Table of Contents
-              </h4>
-              <ul className="space-y-2 text-sm">
-                {tableOfContents.map((heading) => (
-                  <li key={heading.id}>
-                    <a
-                      href={`#${heading.id}`}
-                      className="text-zinc-300 hover:text-white transition-colors hover:underline flex items-center gap-2"
-                    >
-                      <ChevronRight className="w-3.5 h-3.5 text-indigo-400" />
-                      {heading.title}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          <TableOfContents headings={headings} />
 
           {/* Article Body Content */}
           <div
@@ -307,10 +278,15 @@ export default function BlogPost() {
                 </span>
               </div>
               <p className="text-sm text-zinc-300 leading-relaxed">
-                Senior Fullstack Developer with 5+ years of experience designing scalable SaaS web platforms, high-throughput Node.js microservices, and automated AWS cloud architectures.
+                Senior Fullstack Developer with 5+ years of experience designing scalable SaaS web
+                platforms, high-throughput Node.js microservices, and automated AWS cloud
+                architectures.
               </p>
               <div className="pt-2 flex items-center gap-4 text-xs font-semibold">
-                <Link to="/#contact" className="text-indigo-400 hover:text-indigo-300 hover:underline">
+                <Link
+                  href="/#contact"
+                  className="text-indigo-400 hover:text-indigo-300 hover:underline"
+                >
                   Get in touch →
                 </Link>
                 <a
@@ -337,7 +313,7 @@ export default function BlogPost() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-10">
             {prevPost ? (
               <Link
-                to={`/blog/${prevPost.slug}`}
+                href={`/blog/${prevPost.slug}`}
                 className="p-5 rounded-2xl glass-card border border-zinc-800/50 hover:border-zinc-700 group transition-all"
               >
                 <div className="text-xs text-zinc-400 flex items-center gap-1 mb-2">
@@ -347,11 +323,13 @@ export default function BlogPost() {
                   {prevPost.title}
                 </div>
               </Link>
-            ) : <div />}
+            ) : (
+              <div />
+            )}
 
             {nextPost && (
               <Link
-                to={`/blog/${nextPost.slug}`}
+                href={`/blog/${nextPost.slug}`}
                 className="p-5 rounded-2xl glass-card border border-zinc-800/50 hover:border-zinc-700 group transition-all text-right sm:text-right"
               >
                 <div className="text-xs text-zinc-400 flex items-center justify-end gap-1 mb-2">
@@ -367,7 +345,7 @@ export default function BlogPost() {
           {/* Back to Blog Button */}
           <div className="text-center pt-8">
             <Link
-              to="/blog"
+              href="/blog"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold bg-zinc-900 hover:bg-zinc-800 text-zinc-200 border border-zinc-800 hover:border-zinc-700 transition-all"
             >
               <ArrowLeft className="w-4 h-4" />
