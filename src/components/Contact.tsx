@@ -17,8 +17,13 @@ export default function Contact() {
 
   const recaptchaRef = useRef<ReCAPTCHAType>(null);
 
+  const siteKey =
+    process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ||
+    (typeof import.meta !== 'undefined' ? (import.meta as any).env?.VITE_RECAPTCHA_SITE_KEY : undefined);
+  const isRecaptchaConfigured = Boolean(siteKey && siteKey !== 'dummy_site_key');
+
   const activateFormInteraction = () => {
-    if (!showRecaptcha) {
+    if (!showRecaptcha && isRecaptchaConfigured) {
       setShowRecaptcha(true);
     }
   };
@@ -38,7 +43,10 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
-    if (!recaptchaToken) return;
+    if (isRecaptchaConfigured && !recaptchaToken) {
+      console.warn('Please complete the reCAPTCHA security check.');
+      return;
+    }
 
     setFormState('sending');
 
@@ -48,18 +56,20 @@ export default function Contact() {
     const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || (typeof import.meta !== 'undefined' ? (import.meta as any).env?.VITE_EMAILJS_PUBLIC_KEY : undefined);
 
     if (!serviceId || !templateAdminId || !templateCustomerId || !publicKey) {
-      console.error('EmailJS configuration variables are missing. Please verify your .env file.');
+      console.error('EmailJS configuration variables are missing. Please verify your .env file or Cloudflare Pages environment variables.');
       setFormState('error');
       setTimeout(() => setFormState('idle'), 4000);
       return;
     }
 
-    const templateParams = {
+    const templateParams: Record<string, any> = {
       name: formData.name,
       email: formData.email,
       message: formData.message,
-      'g-recaptcha-response': recaptchaToken,
     };
+    if (recaptchaToken) {
+      templateParams['g-recaptcha-response'] = recaptchaToken;
+    }
 
     try {
       // Dynamic import to avoid loading EmailJS script upfront
@@ -283,47 +293,55 @@ export default function Contact() {
                 </div>
 
                 {/* Google reCAPTCHA: On-Demand Lazy Interaction */}
-                <div className="flex justify-center sm:justify-start pt-2 min-h-[78px]">
-                  {showRecaptcha ? (
-                    <Suspense
-                      fallback={
-                        <div className="h-[78px] w-[304px] bg-zinc-900/60 border border-zinc-800/80 rounded-xl flex items-center justify-center text-xs text-zinc-400 animate-pulse">
-                          Loading verification...
+                {isRecaptchaConfigured && (
+                  <div className="flex justify-center sm:justify-start pt-2 min-h-[78px]">
+                    {showRecaptcha ? (
+                      <Suspense
+                        fallback={
+                          <div className="h-[78px] w-[304px] bg-zinc-900/60 border border-zinc-800/80 rounded-xl flex items-center justify-center text-xs text-zinc-400 animate-pulse">
+                            Loading verification...
+                          </div>
+                        }
+                      >
+                        <LazyReCAPTCHA
+                          ref={recaptchaRef}
+                          sitekey={siteKey as string}
+                          onChange={(token) => setRecaptchaToken(token)}
+                          onExpired={() => setRecaptchaToken(null)}
+                          onErrored={() => {
+                            console.error(
+                              'Google reCAPTCHA failed to load. Please ensure your domain is whitelisted in Google reCAPTCHA console (https://www.google.com/recaptcha/admin).'
+                            );
+                          }}
+                          theme="dark"
+                        />
+                      </Suspense>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={activateFormInteraction}
+                        className="h-[78px] w-full max-w-[304px] bg-zinc-900/60 hover:bg-zinc-900/90 border border-zinc-800 hover:border-indigo-500/40 rounded-xl px-4 py-3 flex items-center gap-3 transition-all duration-300 text-left group cursor-pointer"
+                        aria-label="Click to activate reCAPTCHA security verification"
+                      >
+                        <div className="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg group-hover:bg-indigo-500/20 transition-colors">
+                          <ShieldCheck className="w-5 h-5" aria-hidden="true" />
                         </div>
-                      }
-                    >
-                      <LazyReCAPTCHA
-                        ref={recaptchaRef}
-                        sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || (typeof import.meta !== 'undefined' ? (import.meta as any).env?.VITE_RECAPTCHA_SITE_KEY : undefined) || 'dummy_site_key'}
-                        onChange={(token) => setRecaptchaToken(token)}
-                        theme="dark"
-                      />
-                    </Suspense>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={activateFormInteraction}
-                      className="h-[78px] w-full max-w-[304px] bg-zinc-900/60 hover:bg-zinc-900/90 border border-zinc-800 hover:border-indigo-500/40 rounded-xl px-4 py-3 flex items-center gap-3 transition-all duration-300 text-left group cursor-pointer"
-                      aria-label="Click to activate reCAPTCHA security verification"
-                    >
-                      <div className="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg group-hover:bg-indigo-500/20 transition-colors">
-                        <ShieldCheck className="w-5 h-5" aria-hidden="true" />
-                      </div>
-                      <div>
-                        <span className="text-xs font-semibold text-zinc-200 block group-hover:text-white transition-colors">
-                          Security Verification
-                        </span>
-                        <span className="text-[11px] text-zinc-400 block">
-                          Click to load reCAPTCHA
-                        </span>
-                      </div>
-                    </button>
-                  )}
-                </div>
+                        <div>
+                          <span className="text-xs font-semibold text-zinc-200 block group-hover:text-white transition-colors">
+                            Security Verification
+                          </span>
+                          <span className="text-[11px] text-zinc-400 block">
+                            Click to load reCAPTCHA
+                          </span>
+                        </div>
+                      </button>
+                    )}
+                  </div>
+                )}
 
                 <button
                   type="submit"
-                  disabled={formState !== 'idle' || !recaptchaToken}
+                  disabled={formState !== 'idle' || (isRecaptchaConfigured && !recaptchaToken)}
                   aria-label="Send contact form message"
                   className={`w-full flex items-center justify-center gap-2 py-4 rounded-xl text-sm font-bold tracking-wide shadow-md active:scale-[0.98] transition-all duration-300 cursor-pointer ${formState === 'success'
                     ? 'bg-emerald-500 hover:bg-emerald-600 text-white shadow-emerald-500/10'
